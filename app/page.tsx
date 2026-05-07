@@ -38,30 +38,30 @@ export default function Portfolio() {
   const projects = [
     {
       id: 1,
-      title: "Real Estate Dashboard",
-      description: "A high-performance admin dashboard with Laravel Livewire, featuring caching, eager loading, and role-based access.",
+      title: "Real Estate Management System (Laravel) – Multi-Tenant SaaS",
+      description: "Multi-tenant Laravel Real Estate System for property & unit management, tenant bookings, lease & payment tracking, maintenance requests, accounting, internal chat, and notifications. Fully responsive & SaaS-ready.",
       image: "/images/project1.png",
-      tech: ["Laravel", "Livewire", "Tailwind", "MySQL"],
+      tech: ["Laravel", "Livewire", "filament", "MySQL", "React.js", "Alpine"],
       live: "#",
-      github: "#",
+      github: "https://github.com/abd-alaziz-almufti/real-estate-system",
     },
     {
       id: 2,
-      title: "Expense Management Microservices",
-      description: "Distributed architecture using RabbitMQ for seamless communication between budget and expense services.",
+      title: "Smart Expense Management",
+      description: "Smart Expense Manager built with Laravel & Filament. Integrated with OpenAI to analyze spending habits and generate personalized financial optimization plans.",
       image: "/images/project2.png",
-      tech: ["Node.js", "RabbitMQ", "Microservices", "Docker"],
+      tech: ["Laravel", "Livewire", "Filament", "MySQL", "openai-api", "financial-analysis"],
       live: "#",
-      github: "#",
+      github: "https://github.com/abd-alaziz-almufti/Expense-Manager-Project",
     },
     {
       id: 3,
-      title: "Guidance Information Portal",
-      description: "An optimized platform for students with dynamic FAQ filtering and robust server-side validation.",
+      title: "Unified University Platform",
+      description: "Establishing an information center for the Islamic University, developing the university's website to keep pace with advancements, creating a ticketing system, and integrating artificial intelligence to make it easier for students to use the website.",
       image: "/images/project3.png",
-      tech: ["Next.js", "React", "Tailwind", "PostgreSQL"],
+      tech: ["Laravel", "React", "Filament", "PostgreSQL", "Livewire laravel", "Alpine", "API"],
       live: "#",
-      github: "#",
+      github: "https://github.com/abd-alaziz-almufti/uup-iug",
     },
   ];
 
@@ -259,11 +259,11 @@ export default function Portfolio() {
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a href="mailto:your@email.com" className="px-8 py-4 bg-primary text-white rounded-full font-medium flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors">
+              <a href="aalmufti@students.iugaza.edu.ps" className="px-8 py-4 bg-primary text-white rounded-full font-medium flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors">
                 <Mail className="w-5 h-5" />
                 Say Hello
               </a>
-              <a href="#" className="px-8 py-4 glass rounded-full font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
+              <a href="www.linkedin.com/in/abdalaziz-almufti-a6a9a53a9" className="px-8 py-4 glass rounded-full font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
                 <LinkedinIcon className="w-5 h-5" />
                 LinkedIn
               </a>
