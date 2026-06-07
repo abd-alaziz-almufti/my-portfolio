@@ -19,6 +19,15 @@ const LinkedinIcon = ({ className }: { className?: string }) => (
     <circle cx="4" cy="4" r="2" />
   </svg>
 );
+
+const WhatsappIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+    <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
+    <path d="M14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
+    <path d="M9.5 13a3.5 3.5 0 0 0 5 0" />
+  </svg>
+);
 import Image from "next/image";
 
 const fadeInUp: Variants = {
@@ -259,13 +268,17 @@ export default function Portfolio() {
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a href="aalmufti@students.iugaza.edu.ps" className="px-8 py-4 bg-primary text-white rounded-full font-medium flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors">
+              <a href="mailto:aalmufti@students.iugaza.edu.ps" className="px-8 py-4 bg-primary text-white rounded-full font-medium flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors">
                 <Mail className="w-5 h-5" />
                 Say Hello
               </a>
-              <a href="www.linkedin.com/in/abdalaziz-almufti-a6a9a53a9" className="px-8 py-4 glass rounded-full font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
+              <a href="https://www.linkedin.com/in/abdalaziz-almufti-a6a9a53a9" target="_blank" rel="noopener noreferrer" className="px-8 py-4 glass rounded-full font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
                 <LinkedinIcon className="w-5 h-5" />
                 LinkedIn
+              </a>
+              <a href="https://wa.me/972567048866" target="_blank" rel="noopener noreferrer" className="px-8 py-4 glass rounded-full font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
+                <WhatsappIcon className="w-5 h-5 text-[#25D366]" />
+                WhatsApp
               </a>
             </div>
           </motion.div>
