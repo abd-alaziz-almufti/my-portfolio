@@ -81,15 +81,17 @@ export default function Portfolio() {
 
   return (
     <div className="relative min-h-screen pb-20">
+      {/* Global Background Blobs */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] animate-blob" />
+        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 rounded-full blur-[120px] animate-blob animation-delay-2000" />
+        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-600/10 rounded-full blur-[120px] animate-blob animation-delay-4000" />
+      </div>
+
       <Navbar />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-[120px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px]" />
-        </div>
-
         <motion.div
           className="container mx-auto px-6 relative z-10 text-center"
           initial="hidden"
@@ -154,13 +156,16 @@ export default function Portfolio() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
-            className="glass-card p-10 md:p-14 rounded-[2rem]"
+            className="glass-card p-10 md:p-14 rounded-[2rem] relative overflow-hidden group"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 flex items-center gap-4">
+            {/* Subtle glow for About card */}
+            <div className="absolute -inset-24 bg-primary/5 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 flex items-center gap-4 relative z-10">
               <User className="text-primary w-8 h-8" />
               About Me
             </h2>
-            <div className="text-lg text-gray-300 space-y-4 leading-relaxed">
+            <div className="text-lg text-gray-300 space-y-4 leading-relaxed relative z-10">
               <p>
                 I am a passionate Full Stack Developer with a strong focus on system architecture and performance optimization.
                 I specialize in migrating legacy systems to modern frameworks, ensuring robust security, and building scalable microservices.
@@ -200,7 +205,7 @@ export default function Portfolio() {
                 key={index}
                 variants={fadeInUp}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="glass px-6 py-3 rounded-xl font-medium text-gray-200 border border-white/5 hover:border-primary/50 transition-colors"
+                className="glass px-6 py-3 rounded-xl font-medium text-gray-200 border border-white/5 hover:border-primary/50 transition-colors cursor-default"
               >
                 {skill}
               </motion.div>
@@ -232,7 +237,14 @@ export default function Portfolio() {
                 viewport={{ once: true, margin: "-50px" }}
                 variants={fadeInUp}
                 transition={{ delay: index * 0.1 }}
-                className="group glass-card rounded-2xl overflow-hidden flex flex-col h-full"
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  e.currentTarget.style.setProperty("--x", `${x}px`);
+                  e.currentTarget.style.setProperty("--y", `${y}px`);
+                }}
+                className="group glass-card rounded-2xl overflow-hidden flex flex-col h-full spotlight-card"
               >
                 <div className="relative h-48 w-full overflow-hidden bg-gray-900">
                   <Image
@@ -244,7 +256,7 @@ export default function Portfolio() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                 </div>
 
-                <div className="p-6 flex flex-col flex-grow">
+                <div className="p-6 flex flex-col flex-grow relative z-10">
                   <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
                   <p className="text-gray-400 text-sm mb-6 flex-grow">{project.description}</p>
 

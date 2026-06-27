@@ -3,7 +3,8 @@
 :root {
   --background: #000000;
   --foreground: #ffffff;
-  --primary: #3b82f6; /* Blue 500 */
+  --primary: #3b82f6;
+  /* Blue 500 */
   --primary-glow: rgba(59, 130, 246, 0.5);
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.1);
@@ -20,7 +21,7 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  background-image: 
+  background-image:
     radial-gradient(circle at 15% 50%, rgba(20, 20, 30, 1), transparent 25%),
     radial-gradient(circle at 85% 30%, rgba(10, 20, 40, 1), transparent 25%);
   background-attachment: fixed;
@@ -37,9 +38,9 @@ body {
 }
 
 .glass-card {
-  background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -51,17 +52,75 @@ body {
   background-image: linear-gradient(90deg, #3b82f6, #8b5cf6);
 }
 
+/* Noise Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+}
+
+@layer utilities {
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+/* Spotlight Effect Utility */
+.spotlight-card {
+  --x: 50%;
+  --y: 50%;
+  position: relative;
+  background: radial-gradient(circle at var(--x) var(--y), rgba(59, 130, 246, 0.15), transparent 80%);
+}
+
 /* Hide scrollbar for clean look */
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--background);
 }
+
 ::-webkit-scrollbar-thumb {
   background: #333;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
