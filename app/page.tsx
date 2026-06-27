@@ -96,11 +96,30 @@ export default function Portfolio() {
           animate="visible"
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp} className="mb-6 flex justify-center">
-            <div className="w-32 h-32 rounded-full border-2 border-white/10 overflow-hidden glass p-1">
-              <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center relative overflow-hidden">
-                {/* Placeholder for Profile Image */}
-                <Image src="/images/avatar.jpg" alt="Abdalaziz M Almufti" fill className="object-cover" />
+          <motion.div
+            variants={fadeInUp}
+            className="mb-8 flex justify-center relative"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <div className="relative group">
+              {/* Animated Glow Backlight */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-600/40 via-purple-600/40 to-blue-600/40 rounded-full blur-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-500 animate-pulse" />
+
+              {/* Outer Decorative Ring */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full opacity-75 group-hover:opacity-100 blur-[1px] transition-all duration-500" />
+
+              {/* Image Container */}
+              <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-black/50 overflow-hidden glass p-1.5 backdrop-blur-2xl">
+                <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center relative overflow-hidden">
+                  <Image
+                    src="/images/MY Profile.jpeg"
+                    alt="Abdalaziz M Almufti"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </motion.div>
