@@ -66,6 +66,7 @@ export default function Portfolio() {
       tech: ["Laravel", "Livewire", "Filament", "MySQL", "OpenAI API", "Financial Analysis"],
       links: [
         { label: "Source", url: "https://github.com/abd-alaziz-almufti/Expense-Manager-Project", type: "code" as const },
+        { label: "Demo", url: "https://expense-manager-project-production.up.railway.app/user/login", type: "live" as const},
       ],
     },
     {
