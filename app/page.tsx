@@ -66,7 +66,7 @@ export default function Portfolio() {
       tech: ["Laravel", "Livewire", "Filament", "MySQL", "OpenAI API", "Financial Analysis"],
       links: [
         { label: "Source", url: "https://github.com/abd-alaziz-almufti/Expense-Manager-Project", type: "code" as const },
-        { label: "Demo", url: "https://expense-manager-project-production.up.railway.app/user/login", type: "live" as const},
+        { label: "Demo", url: "https://expense-manager-project-production.up.railway.app/user/login", type: "live" as const },
       ],
     },
     {
@@ -77,6 +77,7 @@ export default function Portfolio() {
       tech: ["Laravel", "React", "Filament", "PostgreSQL", "Livewire", "Alpine.js", "API"],
       links: [
         { label: "Source", url: "https://github.com/abd-alaziz-almufti/uup-iug", type: "code" as const },
+        { label: "Demo", url: "https://uup-iug.onrender.com/", type: "live" as const },
       ],
     },
   ];
@@ -175,7 +176,7 @@ export default function Portfolio() {
           </motion.h1>
 
           <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10">
-            Full Stack Developer building scalable architectures and integrating AI 
+            Full Stack Developer building scalable architectures and integrating AI
             to create smarter, more efficient applications.
           </motion.p>
 
@@ -214,7 +215,7 @@ export default function Portfolio() {
                 I specialize in migrating legacy systems to modern frameworks, building scalable multi-tenant SaaS platforms, and integrating AI capabilities—from LLM-powered automation to intelligent data analysis—into real-world products.
               </p>
               <p>
-                Beyond traditional full-stack development, I actively work with AI APIs (OpenAI, Claude) to build features like automated financial analysis, smart recommendations, and conversational interfaces. 
+                Beyond traditional full-stack development, I actively work with AI APIs (OpenAI, Claude) to build features like automated financial analysis, smart recommendations, and conversational interfaces.
                 I&apos;m certified by Anthropic in building with the Claude API, AI fluency, and Claude Code—and I bring that knowledge into every project I build, from database design to production deployment.
               </p>
             </div>
@@ -246,9 +247,8 @@ export default function Portfolio() {
                 variants={fadeInUp}
               >
                 <h3
-                  className={`text-sm font-semibold uppercase tracking-wider mb-4 text-center flex items-center justify-center gap-2 ${
-                    group.highlight ? "text-primary" : "text-gray-500"
-                  }`}
+                  className={`text-sm font-semibold uppercase tracking-wider mb-4 text-center flex items-center justify-center gap-2 ${group.highlight ? "text-primary" : "text-gray-500"
+                    }`}
                 >
                   {group.highlight && <Sparkles className="w-4 h-4" />}
                   {group.category}
@@ -265,11 +265,10 @@ export default function Portfolio() {
                       key={index}
                       variants={fadeInUp}
                       whileHover={{ scale: 1.05, y: -5 }}
-                      className={`px-6 py-3 rounded-xl font-medium transition-colors cursor-default ${
-                        group.highlight
+                      className={`px-6 py-3 rounded-xl font-medium transition-colors cursor-default ${group.highlight
                           ? "glass border border-primary/30 text-primary bg-primary/5 hover:border-primary/60"
                           : "glass text-gray-200 border border-white/5 hover:border-primary/50"
-                      }`}
+                        }`}
                     >
                       {skill}
                     </motion.div>
