@@ -1,451 +1,422 @@
-"use client";
-
-import React from "react";
-import Navbar from "./components/Navbar";
-import { motion, Variants } from "framer-motion";
-import { ArrowRight, ExternalLink, Mail, User, Award, BadgeCheck, Sparkles } from "lucide-react";
-
-const GithubIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
-
-const LinkedinIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-
-const WhatsappIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-    <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
-    <path d="M14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
-    <path d="M9.5 13a3.5 3.5 0 0 0 5 0" />
-  </svg>
-);
 import Image from "next/image";
+import Navbar from "./components/Navbar";
 
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+const EMAIL = "abedalmufti@gmail.com";
+const CV_URL = "/Abdalaziz_Almufti_CV.pdf";
+
+const links = {
+  linkedin: "https://www.linkedin.com/in/abdalaziz-almufti-a6a9a53a9/",
+  github: "https://github.com/abd-alaziz-almufti",
+  whatsapp: "https://wa.me/972567048866",
 };
 
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 },
+const healthyLife = {
+  url: "https://frontend-nextjs-phi-ten.vercel.app/ar",
+  backend: "https://github.com/HealthyLife-AI/Backend-Laravel",
+  frontend: "https://github.com/HealthyLife-AI/Frontend-Nextjs",
+  built: [
+    "Designed the multi-tenant architecture and MySQL schema, with a global scope that keeps every clinic's patient data isolated, and role-based permissions.",
+    "Built the Laravel REST API that serves both the Next.js dashboard for specialists and the Flutter app for patients.",
+    "Added an AI layer: rule-based alerts when a patient's adherence drops, and LLM-written weekly summaries for each patient.",
+    "Lead a team of three developers alongside design and marketing, and run releases and production deployment.",
+  ],
+  facts: [
+    { label: "Role", value: "Founder & Tech Lead" },
+    { label: "Since", value: "July 2026" },
+    { label: "Status", value: "Live in production" },
+    { label: "Stack", value: "Laravel, Next.js, MySQL, Flutter" },
+  ],
+};
+
+const projects = [
+  {
+    title: "Real estate management, multi-tenant SaaS",
+    summary:
+      "Property, unit, lease, payment, expense and maintenance workflows for real estate companies. Built with a partner as a Laravel + Filament backend and a Next.js frontend.",
+    detail:
+      "Tenant isolation through a custom CompanyScope on every query, role-based access for five roles with Spatie Permission and Filament Shield, queued jobs and PHPUnit tests.",
+    image: "/images/Project1.png",
+    tech: ["Laravel", "Filament", "Next.js", "MySQL"],
+    links: [
+      { label: "Live demo", url: "https://real-state-frontend-with-nextjs-meo.vercel.app/" },
+      { label: "Backend code", url: "https://github.com/abd-alaziz-almufti/real-estate-system" },
+      { label: "Frontend code", url: "https://github.com/abd-alaziz-almufti/real_state_frontend_with_nextjs" },
+    ],
   },
-};
+  {
+    title: "Smart expense manager with AI analysis",
+    summary:
+      "A personal-finance app for expenses, budgets, income and alerts that asks the OpenAI API for a spending analysis and a budget plan for each user.",
+    detail:
+      "AI answers are held to a JSON contract, validated and parsed defensively, with rate limits and API failures handled and covered by tests using OpenAI fakes.",
+    image: "/images/project2.png",
+    tech: ["Laravel", "Livewire", "Filament", "OpenAI API"],
+    links: [
+      { label: "Live demo", url: "https://expense-manager-project-production.up.railway.app/user/login" },
+      { label: "Code", url: "https://github.com/abd-alaziz-almufti/Expense-Manager-Project" },
+    ],
+  },
+  {
+    title: "Unified University Platform",
+    summary:
+      "My graduation project at the Islamic University of Gaza, defended with distinction: one place for university services, with a ticketing system, announcements and an admin portal.",
+    detail:
+      "Ticket routing with chat-style replies, notifications, admission calculations, instant search and an approval flow for profile changes, with eager loading and caching.",
+    image: "/images/project3.png",
+    tech: ["Laravel", "Livewire", "Filament", "PostgreSQL"],
+    links: [
+      { label: "Live demo", url: "https://uup-iug.onrender.com/" },
+      { label: "Code", url: "https://github.com/abd-alaziz-almufti/uup-iug" },
+    ],
+  },
+];
+
+const moreWork = [
+  {
+    title: "Dental clinic management system",
+    text: "Multi-branch clinic backend for patients, appointments, visits, billing and inventory.",
+    url: "https://github.com/abd-alaziz-almufti/DentalClinicManagementSystem",
+  },
+  {
+    title: "Expense management microservices",
+    text: "Event-driven services in Java and Spring Boot.",
+    url: "https://github.com/abd-alaziz-almufti/Expense-Management-SpringBoot",
+  },
+];
+
+const experience = [
+  {
+    period: "Jul 2026 – now",
+    role: "Founder & Tech Lead",
+    org: "HealthyLife AI",
+    text: "Founded the product and lead its team. Own the architecture, database, backend, web dashboard and production.",
+  },
+  {
+    period: "Jul 2026 – now",
+    role: "Trainee, Code Map 3 program",
+    org: "Taqat",
+    text: "Started HealthyLife AI in the program and took it from interviews with nutritionists and an MVP spec to a production release.",
+  },
+  {
+    period: "Jun 2024 – Mar 2025",
+    role: "Laravel Developer (Trainee)",
+    org: "Webura, Gaza",
+    text: "Intensive project-based Laravel training. Built an e-commerce platform end to end with Stripe payments and a Livewire admin dashboard.",
+  },
+  {
+    period: "2022 – 2026",
+    role: "B.Sc. in Software Development",
+    org: "Islamic University of Gaza",
+    text: "Graduated in June 2026 with a grade of Very Good, in an English-taught program.",
+  },
+];
+
+const skills = [
+  { group: "Backend", items: ["Laravel", "PHP", "Livewire", "Filament", "REST APIs", "Java & Spring Boot"] },
+  { group: "Frontend", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Blade"] },
+  { group: "AI", items: ["Claude API", "OpenAI API", "Structured output", "Prompt engineering"] },
+  { group: "Data & tools", items: ["MySQL", "PostgreSQL", "RabbitMQ", "Docker", "PHPUnit", "Git"] },
+];
+
+const certifications = [
+  { title: "Building with the Claude API", url: "https://verify.skilljar.com/c/7nz2rcvvsxtz" },
+  { title: "AI Fluency: Framework & Foundations", url: "https://verify.skilljar.com/c/a2uyixvqek63" },
+  { title: "Claude Code 101", url: "https://verify.skilljar.com/c/h9unvpzxc9mu" },
+];
+
+function SectionHeading({ id, title, note }: { id: string; title: string; note?: string }) {
+  return (
+    <div className="mb-10 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+      <h2 id={id} className="font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
+        {title}
+      </h2>
+      {note && <p className="max-w-md text-muted">{note}</p>}
+    </div>
+  );
+}
+
+function TextLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-semibold text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
+    >
+      {children}
+    </a>
+  );
+}
 
 export default function Portfolio() {
-  const projects = [
-    {
-      id: 1,
-      title: "Real Estate Management System – Multi-Tenant SaaS",
-      description: "A multi-tenant SaaS platform for real estate, built with a separated architecture: a Laravel + Filament backend for the API and system management, and a Next.js frontend for the public-facing UI. Developed in collaboration with Ayyub Humeid.",
-      image: "/images/Project1.png",
-      tech: ["Laravel", "Filament", "MySQL", "Next.js", "React.js", "Alpine.js"],
-      links: [
-        { label: "Frontend Demo", url: "https://real-state-frontend-with-nextjs-meo.vercel.app/", type: "live" as const },
-        { label: "Backend Demo", url: "https://real-estate-system-npk9.onrender.com/", type: "live" as const },
-        { label: "Frontend Repo", url: "https://github.com/abd-alaziz-almufti/real_state_frontend_with_nextjs", type: "code" as const },
-        { label: "Backend Repo", url: "https://github.com/abd-alaziz-almufti/real-estate-system", type: "code" as const },
-      ],
-    },
-    {
-      id: 2,
-      title: "Smart Expense Management",
-      description: "An AI-powered expense management platform. Built with Laravel & Filament, it integrates the OpenAI API to analyze user spending patterns in real-time and generate personalized financial optimization plans—turning raw transaction data into actionable insights.",
-      image: "/images/project2.png",
-      tech: ["Laravel", "Livewire", "Filament", "MySQL", "OpenAI API", "Financial Analysis"],
-      links: [
-        { label: "Source", url: "https://github.com/abd-alaziz-almufti/Expense-Manager-Project", type: "code" as const },
-        { label: "Demo", url: "https://expense-manager-project-production.up.railway.app/user/login", type: "live" as const },
-      ],
-    },
-    {
-      id: 3,
-      title: "Unified University Platform",
-      description: "Establishing an information center for the Islamic University, developing the university's website to keep pace with advancements, creating a ticketing system, and integrating artificial intelligence to make it easier for students to use the website.",
-      image: "/images/project3.png",
-      tech: ["Laravel", "React", "Filament", "PostgreSQL", "Livewire", "Alpine.js", "API"],
-      links: [
-        { label: "Source", url: "https://github.com/abd-alaziz-almufti/uup-iug", type: "code" as const },
-        { label: "Demo", url: "https://uup-iug.onrender.com/", type: "live" as const },
-      ],
-    },
-  ];
-
-  const skillCategories = [
-    {
-      category: "AI & Automation",
-      highlight: true,
-      skills: ["Claude API", "OpenAI API", "Prompt Engineering", "AI-Assisted Development"],
-    },
-    {
-      category: "Backend",
-      skills: ["Laravel", "Livewire", "PHP", "Node.js", "RabbitMQ"],
-    },
-    {
-      category: "Frontend",
-      skills: ["React.js", "Next.js", "TypeScript", "Tailwind CSS"],
-    },
-    {
-      category: "Database & DevOps",
-      skills: ["MySQL", "PostgreSQL", "Docker"],
-    },
-  ];
-
-  const certifications = [
-    {
-      title: "Building with the Claude API",
-      issuer: "Anthropic Education",
-      date: "Aug 2026",
-      verifyUrl: "https://verify.skilljar.com/c/7nz2rcvvsxtz",
-    },
-    {
-      title: "AI Fluency: Framework & Foundations",
-      issuer: "Anthropic Education",
-      date: "Aug 2026",
-      verifyUrl: "https://verify.skilljar.com/c/a2uyixvqek63",
-    },
-    {
-      title: "Claude Code 101",
-      issuer: "Anthropic Education",
-      date: "Aug 2026",
-      verifyUrl: "https://verify.skilljar.com/c/h9unvpzxc9mu",
-    },
-  ];
-
   return (
-    <div className="relative min-h-screen pb-20">
-      {/* Global Background Blobs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] animate-blob" />
-        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 rounded-full blur-[120px] animate-blob animation-delay-2000" />
-        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-600/10 rounded-full blur-[120px] animate-blob animation-delay-4000" />
-      </div>
-
+    <>
       <Navbar />
-
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <motion.div
-          className="container mx-auto px-6 relative z-10 text-center"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          <motion.div
-            variants={fadeInUp}
-            className="mb-8 flex justify-center relative"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            <div className="relative group">
-              {/* Animated Glow Backlight */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-600/40 via-purple-600/40 to-blue-600/40 rounded-full blur-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-500 animate-pulse" />
-
-              {/* Outer Decorative Ring */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full opacity-75 group-hover:opacity-100 blur-[1px] transition-all duration-500" />
-
-              {/* Image Container */}
-              <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-black/50 overflow-hidden glass p-1.5 backdrop-blur-2xl">
-                <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center relative overflow-hidden">
-                  <Image
-                    src="/images/MY Profile.jpeg"
-                    alt="Abdalaziz M Almufti"
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                    priority
-                  />
-                </div>
+      <main id="top" className="flex-1">
+        {/* Hero */}
+        <section className="mx-auto max-w-6xl px-5 pb-20 pt-16 md:px-8 md:pb-28 md:pt-24">
+          <div className="grid items-center gap-12 md:grid-cols-[1fr_auto]">
+            <div className="max-w-3xl">
+              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-sm font-medium text-muted">
+                <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
+                Open to Backend and Full Stack roles, remote or relocation
+              </p>
+              <h1 className="font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-[4.25rem]">
+                I build web products end to end, from the database to production.
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
+                I&apos;m Abdalaziz Almufti, a Full Stack Developer in Gaza working with Laravel and Next.js. I founded
+                and lead <TextLink href={healthyLife.url}>HealthyLife AI</TextLink>, an Arabic-first platform for
+                nutrition specialists that is live today.
+              </p>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <a
+                  href="#work"
+                  className="rounded-full bg-accent px-6 py-3 font-semibold text-white transition-colors hover:bg-ink"
+                >
+                  See my work
+                </a>
+                <a
+                  href={CV_URL}
+                  download
+                  className="rounded-full border border-ink/20 bg-surface px-6 py-3 font-semibold text-ink transition-colors hover:border-ink"
+                >
+                  Download CV
+                </a>
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="rounded-full px-2 py-3 font-semibold text-ink underline sm:px-6 decoration-ink/20 underline-offset-4 hover:decoration-ink"
+                >
+                  {EMAIL}
+                </a>
               </div>
             </div>
-          </motion.div>
-
-          <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-bold tracking-tight mb-4">
-            Hi, I&apos;m <br />
-            <span className="text-gradient">Abdalaziz M Almufti</span>
-          </motion.h1>
-
-          <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10">
-            Full Stack Developer building scalable architectures and integrating AI
-            to create smarter, more efficient applications.
-          </motion.p>
-
-          <motion.div variants={fadeInUp} className="flex justify-center gap-4">
-            <a href="#projects" className="group px-8 py-4 bg-white text-black rounded-full font-medium flex items-center gap-2 hover:bg-gray-200 transition-all">
-              View My Work
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a href="#contact" className="px-8 py-4 glass rounded-full font-medium hover:bg-white/10 transition-all">
-              Contact Me
-            </a>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-24 relative z-10">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="glass-card p-10 md:p-14 rounded-[2rem] relative overflow-hidden group"
-          >
-            {/* Subtle glow for About card */}
-            <div className="absolute -inset-24 bg-primary/5 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 flex items-center gap-4 relative z-10">
-              <User className="text-primary w-8 h-8" />
-              About Me
-            </h2>
-            <div className="text-lg text-gray-300 space-y-4 leading-relaxed relative z-10">
-              <p>
-                I am a passionate Full Stack Developer with a strong focus on system architecture, performance optimization, and AI-powered application development.
-                I specialize in migrating legacy systems to modern frameworks, building scalable multi-tenant SaaS platforms, and integrating AI capabilities—from LLM-powered automation to intelligent data analysis—into real-world products.
-              </p>
-              <p>
-                Beyond traditional full-stack development, I actively work with AI APIs (OpenAI, Claude) to build features like automated financial analysis, smart recommendations, and conversational interfaces.
-                I&apos;m certified by Anthropic in building with the Claude API, AI fluency, and Claude Code—and I bring that knowledge into every project I build, from database design to production deployment.
-              </p>
+            <div className="relative mx-auto h-56 w-56 md:h-72 md:w-72">
+              <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-[2rem] bg-accent-soft" aria-hidden="true" />
+              <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-line bg-surface">
+                <Image
+                  src="/images/MY Profile.jpeg"
+                  alt="Portrait of Abdalaziz Almufti"
+                  fill
+                  sizes="(min-width: 768px) 288px, 224px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
             </div>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="py-24 relative z-10">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Technical Expertise</h2>
-            <p className="text-gray-400">The tools and technologies I use to build scalable, AI-powered systems.</p>
-          </motion.div>
+        {/* Featured: HealthyLife */}
+        <section aria-labelledby="work" className="border-y border-line bg-surface">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+            <SectionHeading id="work" title="Selected work" note="What I've built, starting with the product I run." />
 
-          <div className="space-y-10">
-            {skillCategories.map((group) => (
-              <motion.div
-                key={group.category}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={fadeInUp}
-              >
-                <h3
-                  className={`text-sm font-semibold uppercase tracking-wider mb-4 text-center flex items-center justify-center gap-2 ${group.highlight ? "text-primary" : "text-gray-500"
-                    }`}
-                >
-                  {group.highlight && <Sparkles className="w-4 h-4" />}
-                  {group.category}
-                </h3>
-                <motion.div
-                  variants={staggerContainer}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="flex flex-wrap justify-center gap-4"
-                >
-                  {group.skills.map((skill, index) => (
-                    <motion.div
-                      key={index}
-                      variants={fadeInUp}
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      className={`px-6 py-3 rounded-xl font-medium transition-colors cursor-default ${group.highlight
-                          ? "glass border border-primary/30 text-primary bg-primary/5 hover:border-primary/60"
-                          : "glass text-gray-200 border border-white/5 hover:border-primary/50"
-                        }`}
-                    >
-                      {skill}
-                    </motion.div>
+            <article className="grid gap-10 rounded-3xl bg-ink p-7 text-white md:grid-cols-[1.4fr_1fr] md:p-12">
+              <div>
+                <p className="text-sm font-semibold text-[#8fd9bf]">Current project</p>
+                <h3 className="mt-2 font-display text-3xl font-bold tracking-tight md:text-4xl">HealthyLife AI</h3>
+                <p className="mt-4 text-lg leading-relaxed text-white/80">
+                  An Arabic-first SaaS platform for clinical nutrition specialists. They manage patients, design
+                  meal plans from a library of local dishes, and get alerted between visits when a patient starts to
+                  slip.
+                </p>
+                <ul className="mt-6 space-y-3">
+                  {healthyLife.built.map((item) => (
+                    <li key={item} className="flex gap-3 leading-relaxed text-white/85">
+                      <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#8fd9bf]" aria-hidden="true" />
+                      {item}
+                    </li>
                   ))}
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications Section */}
-      <section id="certifications" className="py-24 relative z-10">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 flex items-center justify-center gap-3">
-              <Award className="text-primary w-8 h-8" />
-              Certifications
-            </h2>
-            <p className="text-gray-400">Verified credentials in AI development from Anthropic Education.</p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {certifications.map((cert) => (
-              <motion.a
-                key={cert.title}
-                href={cert.verifyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                variants={fadeInUp}
-                whileHover={{ scale: 1.03, y: -4 }}
-                className="glass-card p-6 rounded-2xl border border-white/5 hover:border-primary/40 transition-colors flex flex-col gap-3 group"
-              >
-                <div className="flex items-start justify-between">
-                  <BadgeCheck className="text-primary w-6 h-6 shrink-0" />
-                  <span className="text-xs text-gray-500">{cert.date}</span>
+                </ul>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a
+                    href={healthyLife.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full bg-white px-5 py-2.5 font-semibold text-ink transition-colors hover:bg-[#8fd9bf]"
+                  >
+                    Visit the platform
+                  </a>
+                  <a
+                    href={healthyLife.backend}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full border border-white/25 px-5 py-2.5 font-semibold text-white transition-colors hover:border-white"
+                  >
+                    Backend code
+                  </a>
+                  <a
+                    href={healthyLife.frontend}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full border border-white/25 px-5 py-2.5 font-semibold text-white transition-colors hover:border-white"
+                  >
+                    Dashboard code
+                  </a>
                 </div>
-                <h3 className="font-semibold text-gray-100 group-hover:text-primary transition-colors leading-snug">
-                  {cert.title}
+              </div>
+              <dl className="grid self-start gap-px overflow-hidden rounded-2xl bg-white/10">
+                {healthyLife.facts.map((fact) => (
+                  <div key={fact.label} className="bg-ink/95 px-6 py-5">
+                    <dt className="text-sm text-white/60">{fact.label}</dt>
+                    <dd className="mt-1 font-display text-xl font-bold">{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </article>
+
+            <div className="mt-16 divide-y divide-line border-y border-line">
+              {projects.map((project) => (
+                <article key={project.title} className="grid gap-6 py-10 md:grid-cols-[320px_1fr] md:gap-10">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-line bg-paper">
+                    <Image
+                      src={project.image}
+                      alt={`Screenshot of ${project.title}`}
+                      fill
+                      sizes="(min-width: 768px) 320px, 100vw"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-2xl font-bold tracking-tight text-ink">{project.title}</h3>
+                    <p className="mt-3 max-w-2xl leading-relaxed text-ink/85">{project.summary}</p>
+                    <p className="mt-2 max-w-2xl leading-relaxed text-muted">{project.detail}</p>
+                    <ul className="mt-4 flex flex-wrap gap-2" aria-label="Technologies">
+                      {project.tech.map((t) => (
+                        <li key={t} className="rounded-md bg-accent-soft px-2.5 py-1 text-sm font-medium text-accent">
+                          {t}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+                      {project.links.map((link) => (
+                        <TextLink key={link.label} href={link.url}>
+                          {link.label}
+                        </TextLink>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {moreWork.map((item) => (
+                <a
+                  key={item.title}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-2xl border border-line p-6 transition-colors hover:border-accent"
+                >
+                  <h3 className="font-display text-lg font-bold text-ink group-hover:text-accent">{item.title}</h3>
+                  <p className="mt-1 text-muted">{item.text}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Experience */}
+        <section aria-labelledby="experience" className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+          <SectionHeading id="experience" title="Experience and education" />
+          <ol className="relative border-l-2 border-line pl-8">
+            {experience.map((item) => (
+              <li key={item.role + item.org} className="relative pb-10 last:pb-0">
+                <span
+                  className="absolute -left-[41px] top-1.5 h-4 w-4 rounded-full border-4 border-paper bg-accent"
+                  aria-hidden="true"
+                />
+                <p className="text-sm font-medium text-muted">{item.period}</p>
+                <h3 className="mt-1 font-display text-xl font-bold text-ink">
+                  {item.role} <span className="font-medium text-muted">at {item.org}</span>
                 </h3>
-                <p className="text-sm text-gray-400">{cert.issuer}</p>
-                <span className="text-xs text-gray-500 flex items-center gap-1 mt-auto pt-2 border-t border-white/5">
-                  Verify credential <ExternalLink className="w-3 h-3" />
-                </span>
-              </motion.a>
+                <p className="mt-2 max-w-2xl leading-relaxed text-ink/80">{item.text}</p>
+              </li>
             ))}
-          </motion.div>
-        </div>
-      </section>
+          </ol>
+        </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-24 relative z-10">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
-            <p className="text-gray-400">Showcasing my best work in architecture and frontend development.</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={fadeInUp}
-                transition={{ delay: index * 0.1 }}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  e.currentTarget.style.setProperty("--x", `${x}px`);
-                  e.currentTarget.style.setProperty("--y", `${y}px`);
-                }}
-                className="group glass-card rounded-2xl overflow-hidden flex flex-col h-full spotlight-card"
-              >
-                <div className="relative h-48 w-full overflow-hidden bg-gray-900">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                </div>
-
-                <div className="p-6 flex flex-col flex-grow relative z-10">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
-                  <p className="text-gray-400 text-sm mb-6 flex-grow">{project.description}</p>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.map(t => (
-                      <span key={t} className="text-xs bg-white/10 px-2 py-1 rounded-md text-gray-300">
-                        {t}
-                      </span>
+        {/* Skills & certifications */}
+        <section aria-labelledby="skills" className="border-t border-line">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+            <SectionHeading id="skills" title="Skills" />
+            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+              {skills.map((s) => (
+                <div key={s.group}>
+                  <h3 className="font-display text-lg font-bold text-ink">{s.group}</h3>
+                  <ul className="mt-3 space-y-1.5 text-ink/80">
+                    {s.items.map((item) => (
+                      <li key={item}>{item}</li>
                     ))}
-                  </div>
-
-                  <div className="flex flex-wrap gap-x-4 gap-y-2 pt-4 border-t border-white/10">
-                    {project.links.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={
-                          link.type === "live"
-                            ? "flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
-                            : "flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
-                        }
-                      >
-                        {link.type === "live" ? (
-                          <ExternalLink className="w-4 h-4" />
-                        ) : (
-                          <GithubIcon className="w-4 h-4" />
-                        )}
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
+                  </ul>
                 </div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
+
+            <div className="mt-16 rounded-3xl border border-line bg-surface p-7 md:p-10">
+              <h3 className="font-display text-2xl font-bold text-ink">Certifications from Anthropic Education</h3>
+              <ul className="mt-6 divide-y divide-line">
+                {certifications.map((c) => (
+                  <li key={c.title} className="flex flex-wrap items-center justify-between gap-3 py-4">
+                    <span className="font-medium text-ink">{c.title}</span>
+                    <TextLink href={c.url}>Verify credential</TextLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-24 relative z-10 border-t border-white/5 mt-20">
-        <div className="container mx-auto px-6 max-w-4xl text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">Let&apos;s Work Together</h2>
-            <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
-              I&apos;m currently available for freelance work and full-time opportunities.
-              If you have a project that needs some creative and technical magic, let&apos;s talk.
+        {/* Contact */}
+        <section aria-labelledby="contact" className="bg-ink text-white">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+            <h2 id="contact" className="max-w-3xl font-display text-4xl font-extrabold tracking-tight md:text-6xl">
+              Hiring a backend or full stack developer?
+            </h2>
+            <p className="mt-5 max-w-2xl text-lg text-white/75">
+              I&apos;m open to full-time and remote roles, and to freelance projects. The quickest way to reach me is
+              email.
             </p>
-
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a href="mailto:aalmufti@students.iugaza.edu.ps" className="px-8 py-4 bg-primary text-white rounded-full font-medium flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors">
-                <Mail className="w-5 h-5" />
-                Say Hello
-              </a>
-              <a href="https://www.linkedin.com/in/abdalaziz-almufti-a6a9a53a9" target="_blank" rel="noopener noreferrer" className="px-8 py-4 glass rounded-full font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
-                <LinkedinIcon className="w-5 h-5" />
-                LinkedIn
-              </a>
-              <a href="https://wa.me/972567048866" target="_blank" rel="noopener noreferrer" className="px-8 py-4 glass rounded-full font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
-                <WhatsappIcon className="w-5 h-5 text-[#25D366]" />
-                WhatsApp
+            <a
+              href={`mailto:${EMAIL}`}
+              className="mt-8 inline-block break-all font-display text-2xl font-bold text-[#8fd9bf] underline decoration-[#8fd9bf]/40 underline-offset-8 hover:decoration-[#8fd9bf] md:text-4xl"
+            >
+              {EMAIL}
+            </a>
+            <div className="mt-10 flex flex-wrap gap-3">
+              {[
+                { label: "LinkedIn", url: links.linkedin },
+                { label: "GitHub", url: links.github },
+                { label: "WhatsApp", url: links.whatsapp },
+              ].map((l) => (
+                <a
+                  key={l.label}
+                  href={l.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/25 px-5 py-2.5 font-semibold transition-colors hover:border-white"
+                >
+                  {l.label}
+                </a>
+              ))}
+              <a
+                href={CV_URL}
+                download
+                className="rounded-full bg-white px-5 py-2.5 font-semibold text-ink transition-colors hover:bg-[#8fd9bf]"
+              >
+                Download CV
               </a>
             </div>
-          </motion.div>
+          </div>
+        </section>
+      </main>
+      <footer className="bg-ink text-white/50">
+        <div className="mx-auto max-w-6xl border-t border-white/10 px-5 py-6 text-sm md:px-8">
+          © 2026 Abdalaziz Almufti. Gaza, Palestine.
         </div>
-      </section>
-    </div>
+      </footer>
+    </>
   );
 }

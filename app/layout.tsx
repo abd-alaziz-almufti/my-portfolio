@@ -1,22 +1,30 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 
-import CustomCursor from "./components/CustomCursor";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
+  weight: ["500", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plex = IBM_Plex_Sans({
+  variable: "--font-plex",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "Abdalaziz M Almufti | Full Stack Developer",
-  description: "Portfolio of Abdalaziz M Almufti, a Full Stack Web Developer specializing in scalable architectures and beautiful frontend experiences.",
+  metadataBase: new URL("https://my-portfolio-zeta-three-9gki3si54m.vercel.app"),
+  title: "Abdalaziz Almufti | Full Stack Developer (Laravel, Next.js)",
+  description:
+    "Full Stack Developer in Gaza, Palestine. Founder and tech lead of HealthyLife AI, an Arabic-first SaaS platform for nutrition specialists. Laravel, Next.js, multi-tenant architecture and AI integration.",
+  openGraph: {
+    title: "Abdalaziz Almufti | Full Stack Developer",
+    description:
+      "Founder and tech lead of HealthyLife AI. Laravel, Next.js, multi-tenant SaaS and AI integration.",
+    images: ["/images/MY Profile.jpeg"],
+  },
 };
 
 export default function RootLayout({
@@ -25,14 +33,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth dark`}
-    >
-      <body className="min-h-full flex flex-col relative">
-        <CustomCursor />
-        {children}
-      </body>
+    <html lang="en" className={`${bricolage.variable} ${plex.variable} h-full`}>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
