@@ -57,3 +57,59 @@ button:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* One orchestrated entrance for the hero */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-photo {
+  from {
+    opacity: 0;
+    transform: translateY(12px) rotate(-2deg) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal {
+  animation: reveal-up 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.reveal-photo {
+  animation: reveal-photo 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Product screens fade in when a tab is chosen */
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.showcase-panel:not([hidden]) {
+  animation: panel-in 380ms ease-out both;
+}
+
+/* Project screenshots drift slightly on hover */
+.project-shot img {
+  transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+article:hover .project-shot img {
+  transform: scale(1.035);
+}

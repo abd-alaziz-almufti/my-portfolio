@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Navbar from "./components/Navbar";
+import BrowserFrame from "./components/BrowserFrame";
+import ProductShowcase from "./components/ProductShowcase";
 
 const EMAIL = "abedalmufti@gmail.com";
 const CV_URL = "/Abdalaziz_Almufti_CV.pdf";
@@ -36,6 +38,7 @@ const projects = [
     detail:
       "Tenant isolation through a custom CompanyScope on every query, role-based access for five roles with Spatie Permission and Filament Shield, queued jobs and PHPUnit tests.",
     image: "/images/Project1.png",
+    frame: "Real estate SaaS · public site",
     tech: ["Laravel", "Filament", "Next.js", "MySQL"],
     links: [
       { label: "Live demo", url: "https://real-state-frontend-with-nextjs-meo.vercel.app/" },
@@ -50,6 +53,7 @@ const projects = [
     detail:
       "AI answers are held to a JSON contract, validated and parsed defensively, with rate limits and API failures handled and covered by tests using OpenAI fakes.",
     image: "/images/project2.png",
+    frame: "Expense manager · dashboard",
     tech: ["Laravel", "Livewire", "Filament", "OpenAI API"],
     links: [
       { label: "Live demo", url: "https://expense-manager-project-production.up.railway.app/user/login" },
@@ -63,6 +67,7 @@ const projects = [
     detail:
       "Ticket routing with chat-style replies, notifications, admission calculations, instant search and an approval flow for profile changes, with eager loading and caching.",
     image: "/images/project3.png",
+    frame: "Unified University Platform · home",
     tech: ["Laravel", "Livewire", "Filament", "PostgreSQL"],
     links: [
       { label: "Live demo", url: "https://uup-iug.onrender.com/" },
@@ -157,19 +162,19 @@ export default function Portfolio() {
         <section className="mx-auto max-w-6xl px-5 pb-20 pt-16 md:px-8 md:pb-28 md:pt-24">
           <div className="grid items-center gap-12 md:grid-cols-[1fr_auto]">
             <div className="max-w-3xl">
-              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-sm font-medium text-muted">
+              <p className="reveal mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-sm font-medium text-muted">
                 <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
                 Open to Backend and Full Stack roles, remote or relocation
               </p>
-              <h1 className="font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-[4.25rem]">
+              <h1 style={{ animationDelay: "90ms" }} className="reveal font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-[4.25rem]">
                 I build web products end to end, from the database to production.
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
+              <p style={{ animationDelay: "180ms" }} className="reveal mt-6 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
                 I&apos;m Abdalaziz Almufti, a Full Stack Developer in Gaza working with Laravel and Next.js. I founded
                 and lead <TextLink href={healthyLife.url}>HealthyLife AI</TextLink>, an Arabic-first platform for
                 nutrition specialists that is live today.
               </p>
-              <div className="mt-9 flex flex-wrap gap-3">
+              <div style={{ animationDelay: "270ms" }} className="reveal mt-9 flex flex-wrap gap-3">
                 <a
                   href="#work"
                   className="rounded-full bg-accent px-6 py-3 font-semibold text-white transition-colors hover:bg-ink"
@@ -191,7 +196,7 @@ export default function Portfolio() {
                 </a>
               </div>
             </div>
-            <div className="relative mx-auto h-56 w-56 md:h-72 md:w-72">
+            <div style={{ animationDelay: "200ms" }} className="reveal-photo relative mx-auto h-56 w-56 md:h-72 md:w-72">
               <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-[2rem] bg-accent-soft" aria-hidden="true" />
               <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-line bg-surface">
                 <Image
@@ -212,7 +217,8 @@ export default function Portfolio() {
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
             <SectionHeading id="work" title="Selected work" note="What I've built, starting with the product I run." />
 
-            <article className="grid gap-10 rounded-3xl bg-ink p-7 text-white md:grid-cols-[1.4fr_1fr] md:p-12">
+            <article className="rounded-3xl bg-ink p-7 text-white md:p-12">
+              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr]">
               <div>
                 <p className="text-sm font-semibold text-[#8fd9bf]">Current project</p>
                 <h3 className="mt-2 font-display text-3xl font-bold tracking-tight md:text-4xl">HealthyLife AI</h3>
@@ -264,12 +270,20 @@ export default function Portfolio() {
                   </div>
                 ))}
               </dl>
+              </div>
+              <div className="mt-12 border-t border-white/10 pt-10">
+                <h4 className="font-display text-xl font-bold">A look inside the product</h4>
+                <div className="mt-5">
+                  <ProductShowcase />
+                </div>
+              </div>
             </article>
 
             <div className="mt-16 divide-y divide-line border-y border-line">
               {projects.map((project) => (
                 <article key={project.title} className="grid gap-6 py-10 md:grid-cols-[320px_1fr] md:gap-10">
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-line bg-paper">
+                  <BrowserFrame label={project.frame} className="self-start">
+                    <div className="project-shot relative aspect-[16/10] overflow-hidden bg-paper">
                     <Image
                       src={project.image}
                       alt={`Screenshot of ${project.title}`}
@@ -277,7 +291,8 @@ export default function Portfolio() {
                       sizes="(min-width: 768px) 320px, 100vw"
                       className="object-cover object-top"
                     />
-                  </div>
+                    </div>
+                  </BrowserFrame>
                   <div>
                     <h3 className="font-display text-2xl font-bold tracking-tight text-ink">{project.title}</h3>
                     <p className="mt-3 max-w-2xl leading-relaxed text-ink/85">{project.summary}</p>
