@@ -2,6 +2,8 @@ import Image from "next/image";
 import Navbar from "./components/Navbar";
 import BrowserFrame from "./components/BrowserFrame";
 import ProductShowcase from "./components/ProductShowcase";
+import SmoothScroll from "./components/SmoothScroll";
+import { BlurText, LightRays, StarBorder, CountUp } from "./components/react-bits";
 
 const EMAIL = "abedalmufti@gmail.com";
 const CV_URL = "/Abdalaziz_Almufti_CV.pdf";
@@ -131,7 +133,7 @@ const certifications = [
 
 function SectionHeading({ id, title, note }: { id: string; title: string; note?: string }) {
   return (
-    <div className="mb-10 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+    <div data-reveal className="mb-10 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
       <h2 id={id} className="font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
         {title}
       </h2>
@@ -156,31 +158,67 @@ function TextLink({ href, children }: { href: string; children: React.ReactNode 
 export default function Portfolio() {
   return (
     <>
+      <SmoothScroll />
       <Navbar />
       <main id="top" className="flex-1">
         {/* Hero */}
-        <section className="mx-auto max-w-6xl px-5 pb-20 pt-16 md:px-8 md:pb-28 md:pt-24">
+        <section className="relative isolate overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+            <LightRays
+              raysOrigin="top-right"
+              raysColor="#0b6e58"
+              lightMode
+              raysSpeed={0.5}
+              lightSpread={0.8}
+              rayLength={2.2}
+              glow={0.5}
+              haze={0.2}
+              intensity={1}
+              opacity={0.9}
+              followMouse={false}
+              cursorShadow={false}
+              clickPulse={false}
+              maxDevicePixelRatio={1.5}
+            />
+          </div>
+          <div className="mx-auto max-w-6xl px-5 pb-20 pt-16 md:px-8 md:pb-28 md:pt-24">
           <div className="grid items-center gap-12 md:grid-cols-[1fr_auto]">
             <div className="max-w-3xl">
               <p className="reveal mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-sm font-medium text-muted">
                 <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
                 Open to Backend and Full Stack roles, remote or relocation
               </p>
-              <h1 style={{ animationDelay: "90ms" }} className="reveal font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-[4.25rem]">
-                I build web products end to end, from the database to production.
-              </h1>
+              <BlurText
+                as="h1"
+                text="I build web products end to end, from the database to production."
+                animateBy="words"
+                direction="bottom"
+                delay={70}
+                blur={8}
+                distance={18}
+                stepDuration={0.45}
+                className="font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-[4.25rem]"
+              />
               <p style={{ animationDelay: "180ms" }} className="reveal mt-6 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
                 I&apos;m Abdalaziz Almufti, a Full Stack Developer in Gaza working with Laravel and Next.js. I founded
                 and lead <TextLink href={healthyLife.url}>HealthyLife AI</TextLink>, an Arabic-first platform for
                 nutrition specialists that is live today.
               </p>
               <div style={{ animationDelay: "270ms" }} className="reveal mt-9 flex flex-wrap gap-3">
-                <a
+                <StarBorder
+                  as="a"
                   href="#work"
-                  className="rounded-full bg-accent px-6 py-3 font-semibold text-white transition-colors hover:bg-ink"
+                  radius={9999}
+                  backgroundColor="#0b6e58"
+                  textColor="#ffffff"
+                  color="#8fd9bf"
+                  duration={6}
+                  glow={0.4}
+                  clickPulse={false}
+                  className="font-semibold"
                 >
                   See my work
-                </a>
+                </StarBorder>
                 <a
                   href={CV_URL}
                   download
@@ -210,6 +248,7 @@ export default function Portfolio() {
               </div>
             </div>
           </div>
+          </div>
         </section>
 
         {/* Featured: HealthyLife */}
@@ -217,7 +256,7 @@ export default function Portfolio() {
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
             <SectionHeading id="work" title="Selected work" note="What I've built, starting with the product I run." />
 
-            <article className="rounded-3xl bg-ink p-7 text-white md:p-12">
+            <article data-reveal className="rounded-3xl bg-ink p-7 text-white md:p-12">
               <div className="grid gap-10 md:grid-cols-[1.4fr_1fr]">
               <div>
                 <p className="text-sm font-semibold text-[#8fd9bf]">Current project</p>
@@ -266,7 +305,15 @@ export default function Portfolio() {
                 {healthyLife.facts.map((fact) => (
                   <div key={fact.label} className="bg-ink/95 px-6 py-5">
                     <dt className="text-sm text-white/60">{fact.label}</dt>
-                    <dd className="mt-1 font-display text-xl font-bold">{fact.value}</dd>
+                    <dd className="mt-1 font-display text-xl font-bold">
+                      {fact.value === "July 2026" ? (
+                        <>
+                          July <CountUp to={2026} from={2020} duration={1.4} />
+                        </>
+                      ) : (
+                        fact.value
+                      )}
+                    </dd>
                   </div>
                 ))}
               </dl>
@@ -281,7 +328,7 @@ export default function Portfolio() {
 
             <div className="mt-16 divide-y divide-line border-y border-line">
               {projects.map((project) => (
-                <article key={project.title} className="grid gap-6 py-10 md:grid-cols-[320px_1fr] md:gap-10">
+                <article data-reveal key={project.title} className="grid gap-6 py-10 md:grid-cols-[320px_1fr] md:gap-10">
                   <BrowserFrame label={project.frame} className="self-start">
                     <div className="project-shot relative aspect-[16/10] overflow-hidden bg-paper">
                     <Image
@@ -316,7 +363,7 @@ export default function Portfolio() {
               ))}
             </div>
 
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <div data-reveal className="mt-10 grid gap-6 md:grid-cols-2">
               {moreWork.map((item) => (
                 <a
                   key={item.title}
@@ -338,7 +385,7 @@ export default function Portfolio() {
           <SectionHeading id="experience" title="Experience and education" />
           <ol className="relative border-l-2 border-line pl-8">
             {experience.map((item) => (
-              <li key={item.role + item.org} className="relative pb-10 last:pb-0">
+              <li data-reveal key={item.role + item.org} className="relative pb-10 last:pb-0">
                 <span
                   className="absolute -left-[41px] top-1.5 h-4 w-4 rounded-full border-4 border-paper bg-accent"
                   aria-hidden="true"
@@ -359,7 +406,7 @@ export default function Portfolio() {
             <SectionHeading id="skills" title="Skills" />
             <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
               {skills.map((s) => (
-                <div key={s.group}>
+                <div data-reveal key={s.group}>
                   <h3 className="font-display text-lg font-bold text-ink">{s.group}</h3>
                   <ul className="mt-3 space-y-1.5 text-ink/80">
                     {s.items.map((item) => (
@@ -370,7 +417,7 @@ export default function Portfolio() {
               ))}
             </div>
 
-            <div className="mt-16 rounded-3xl border border-line bg-surface p-7 md:p-10">
+            <div data-reveal className="mt-16 rounded-3xl border border-line bg-surface p-7 md:p-10">
               <h3 className="font-display text-2xl font-bold text-ink">Certifications from Anthropic Education</h3>
               <ul className="mt-6 divide-y divide-line">
                 {certifications.map((c) => (
@@ -387,10 +434,10 @@ export default function Portfolio() {
         {/* Contact */}
         <section aria-labelledby="contact" className="bg-ink text-white">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-            <h2 id="contact" className="max-w-3xl font-display text-4xl font-extrabold tracking-tight md:text-6xl">
+            <h2 data-reveal id="contact" className="max-w-3xl font-display text-4xl font-extrabold tracking-tight md:text-6xl">
               Hiring a backend or full stack developer?
             </h2>
-            <p className="mt-5 max-w-2xl text-lg text-white/75">
+            <p data-reveal className="mt-5 max-w-2xl text-lg text-white/75">
               I&apos;m open to full-time and remote roles, and to freelance projects. The quickest way to reach me is
               email.
             </p>
@@ -400,7 +447,7 @@ export default function Portfolio() {
             >
               {EMAIL}
             </a>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div data-reveal className="mt-10 flex flex-wrap gap-3">
               {[
                 { label: "LinkedIn", url: links.linkedin },
                 { label: "GitHub", url: links.github },
