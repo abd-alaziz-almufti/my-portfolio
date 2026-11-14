@@ -3,32 +3,12 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import BrowserFrame from "./BrowserFrame";
+import type { Content } from "../content";
 
-const views = [
-  {
-    id: "dashboard",
-    tab: "Clinic dashboard",
-    caption: "Each specialist starts the day with the patients who need attention and the alerts they haven't read.",
-    image: "/images/hl-dashboard.webp",
-    alt: "HealthyLife AI clinic dashboard in Arabic, showing patient counts, patients who stopped logging meals, and a welcome banner for the nutritionist",
-  },
-  {
-    id: "meal-plan",
-    tab: "Meal plan builder",
-    caption: "Plans are built meal by meal from local dishes, with alternatives, and the calories and macros update with every change.",
-    image: "/images/hl-meal-plan.webp",
-    alt: "HealthyLife AI meal plan builder in Arabic, with breakfast items and their alternatives and a daily nutrition summary ring showing 2011 of 2349 calories",
-  },
-  {
-    id: "alerts",
-    tab: "Adherence alerts",
-    caption: "The system flags patients who stopped logging or went over their targets, and celebrates progress, before the next visit.",
-    image: "/images/hl-alerts.webp",
-    alt: "HealthyLife AI alerts page in Arabic, listing patients who have not logged meals for three days, one who exceeded calorie targets, and one weight-loss achievement",
-  },
-];
+type Showcase = Content["healthyLife"]["showcase"];
 
-export default function ProductShowcase() {
+export default function ProductShowcase({ text }: { text: Showcase }) {
+  const views = text.views;
   const [active, setActive] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -42,11 +22,12 @@ export default function ProductShowcase() {
     <div>
       <div
         role="tablist"
-        aria-label="HealthyLife AI screens"
+        aria-label={text.label}
         className="flex flex-wrap gap-2"
         onKeyDown={(e) => {
-          if (e.key === "ArrowRight") select(active + 1);
-          if (e.key === "ArrowLeft") select(active - 1);
+          const step = getComputedStyle(e.currentTarget).direction === "rtl" ? -1 : 1;
+          if (e.key === "ArrowRight") select(active + step);
+          if (e.key === "ArrowLeft") select(active - step);
         }}
       >
         {views.map((view, i) => (
@@ -74,7 +55,7 @@ export default function ProductShowcase() {
         {views[active].caption}
       </p>
 
-      <BrowserFrame label="HealthyLife AI · Specialist dashboard" tone="dark" className="mt-4">
+      <BrowserFrame label={text.frame} tone="dark" className="mt-4">
         <div className="relative aspect-[1350/555] w-full bg-[#eef6f4]">
           {views.map((view, i) => (
             <div

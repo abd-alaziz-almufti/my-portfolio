@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, IBM_Plex_Sans } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   title: "Abdalaziz Almufti | Full Stack Developer (Laravel, Next.js)",
   description:
     "Full Stack Developer in Gaza, Palestine. Founder and tech lead of HealthyLife AI, an Arabic-first SaaS platform for nutrition specialists. Laravel, Next.js, multi-tenant architecture and AI integration.",
+  alternates: { canonical: "/", languages: { en: "/", ar: "/ar" } },
   openGraph: {
     title: "Abdalaziz Almufti | Full Stack Developer",
     description:

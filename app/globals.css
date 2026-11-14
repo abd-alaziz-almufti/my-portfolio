@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f3f5f4;
+  --paper: #f6f4ee;
   --surface: #ffffff;
-  --ink: #12211d;
-  --muted: #4f5d58;
-  --line: #d6dcd9;
-  --accent: #0b6e58;
-  --accent-soft: #e2efe9;
+  --ink: #0b1a16;
+  --muted: #55615c;
+  --line: #dedfd5;
+  --accent: #0a7a5c;
+  --accent-soft: #dcf2e8;
+  --mint: #7fe3bf;
+  --sun: #f3b04a;
 }
 
 @theme {
@@ -18,8 +20,28 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-mint: var(--mint);
+  --color-sun: var(--sun);
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Arabic: one family for text and headings, no letter-spacing (it breaks joined letters) */
+html[lang="ar"] {
+  --font-display: var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+}
+
+html[lang="ar"] * {
+  letter-spacing: 0 !important;
+}
+
+.hero-title {
+  line-height: 1.05;
+}
+
+html[lang="ar"] .hero-title {
+  line-height: 1.35;
 }
 
 html {
@@ -150,13 +172,13 @@ article:hover .project-shot img {
 }
 
 .ribbon-label-arrow {
-  color: #8fd9bf;
+  color: var(--mint);
   transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .ribbon-label:hover,
 .ribbon-label[data-hover] {
-  color: #8fd9bf;
+  color: var(--mint);
 }
 
 .ribbon-label:hover .ribbon-label-arrow,
@@ -177,7 +199,7 @@ article:hover .project-shot img {
   content: "";
   position: absolute;
   inset: 0;
-  background: #8fd9bf;
+  background: var(--mint);
   animation: scroll-line 1.8s cubic-bezier(0.6, 0, 0.2, 1) infinite;
 }
 
@@ -332,8 +354,7 @@ article:hover .project-shot img {
   height: 5px;
   margin: 0 1.75rem;
   border-radius: 9999px;
-  background: var(--accent);
-  opacity: 0.6;
+  background: var(--sun);
 }
 
 .marquee:hover .marquee-row {
@@ -423,4 +444,57 @@ article:hover .project-shot img {
 .mobile-menu[data-open] li {
   opacity: 1;
   transform: none;
+}
+
+/* ---------- Colour and depth ---------- */
+.photo-backing {
+  background: linear-gradient(140deg, var(--accent-soft) 10%, #f8e2b4 100%);
+}
+
+.panel-dark {
+  background:
+    radial-gradient(90% 70% at 100% 0%, color-mix(in srgb, var(--accent) 38%, transparent), transparent 70%),
+    var(--ink);
+}
+
+.contact-panel {
+  background:
+    radial-gradient(60% 80% at 0% 100%, color-mix(in srgb, var(--accent) 42%, transparent), transparent 70%),
+    radial-gradient(40% 55% at 100% 0%, color-mix(in srgb, var(--sun) 16%, transparent), transparent 70%),
+    var(--ink);
+}
+
+html[dir="rtl"] .panel-dark {
+  background:
+    radial-gradient(90% 70% at 0% 0%, color-mix(in srgb, var(--accent) 38%, transparent), transparent 70%),
+    var(--ink);
+}
+
+/* ---------- Ribbon headline spacing ---------- */
+.ribbon-line-1 {
+  top: calc(50% - 0.98em);
+}
+
+.ribbon-line-2 {
+  top: calc(50% + 0.03em);
+}
+
+html[lang="ar"] .ribbon-line {
+  font-size: clamp(38px, 6vw, 116px);
+}
+
+html[lang="ar"] .ribbon-line-1 {
+  top: calc(50% - 1.3em);
+}
+
+html[lang="ar"] .ribbon-line-2 {
+  top: calc(50% + 0.1em);
+}
+
+html[lang="ar"] .ribbon-caption {
+  top: calc(50% + 1.75 * clamp(38px, 6vw, 116px));
+}
+
+html[dir="rtl"] .nav-link::after {
+  transform-origin: right;
 }

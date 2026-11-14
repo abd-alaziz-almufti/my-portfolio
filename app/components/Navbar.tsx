@@ -1,15 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import type { Content } from "../content";
 
-const navItems = [
-  { name: "Work", href: "#work" },
-  { name: "Experience", href: "#experience" },
-  { name: "Skills", href: "#skills" },
-  { name: "Contact", href: "#contact" },
-];
+type Nav = Content["nav"];
 
-export default function Navbar() {
+export default function Navbar({ name, nav }: { name: string; nav: Nav }) {
+  const navItems = nav.items;
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -29,9 +27,9 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 md:px-8">
         <a href="#top" className="font-display text-lg font-bold tracking-tight text-ink" onClick={() => setOpen(false)}>
-          Abdalaziz Almufti
+          {name}
         </a>
-        <nav aria-label="Main" className="flex items-center gap-1 md:gap-2">
+        <nav aria-label={nav.main} className="flex items-center gap-1 md:gap-2">
           {navItems.map((item) => (
             <a
               key={item.name}
@@ -44,17 +42,29 @@ export default function Navbar() {
           <a
             href="/Abdalaziz_Almufti_CV.pdf"
             download
-            className="ml-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent"
+            className="ms-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent"
           >
-            Download CV
+            <span className="sm:hidden">{nav.cvShort}</span>
+            <span className="hidden sm:inline">{nav.cv}</span>
           </a>
+          <Link
+            href={nav.switchTo.href}
+            lang={nav.switchTo.lang}
+            hrefLang={nav.switchTo.lang}
+            title={nav.switchTo.title}
+            aria-label={nav.switchTo.title}
+            className="lang-switch ms-1 grid h-10 min-w-10 place-items-center rounded-full border border-line bg-surface px-3 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
+          >
+            <span className="md:hidden">{nav.switchTo.short}</span>
+            <span className="hidden md:inline">{nav.switchTo.label}</span>
+          </Link>
           <button
             type="button"
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? nav.closeMenu : nav.openMenu}
             onClick={() => setOpen((v) => !v)}
-            className="menu-toggle ml-1 grid h-10 w-10 place-items-center rounded-full border border-line bg-surface md:hidden"
+            className="menu-toggle ms-1 grid h-10 w-10 place-items-center rounded-full border border-line bg-surface md:hidden"
           >
             <span aria-hidden="true" className="menu-icon" data-open={open || undefined} />
           </button>
@@ -81,7 +91,7 @@ export default function Navbar() {
       <span
         data-scroll-progress
         aria-hidden="true"
-        className="absolute inset-x-0 -bottom-px h-0.5 origin-left scale-x-0 bg-accent"
+        className="absolute inset-x-0 -bottom-px h-0.5 origin-left scale-x-0 bg-accent rtl:origin-right"
       />
     </header>
   );

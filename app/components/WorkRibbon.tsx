@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import type { Content } from "../content";
 
 /**
  * Scroll-driven intro to the work section, adapted from the MotionSites "Video Ribbon" design.
@@ -12,7 +13,7 @@ import { useEffect, useRef } from "react";
  * Visitors who prefer reduced motion (or have no WebGL) get the same screens as a plain grid.
  */
 
-export type RibbonItem = { title: string; image: string; href: string };
+type Ribbon = Content["ribbon"];
 
 const clamp = (x: number, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const mix = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -32,7 +33,8 @@ void main(){
   gl_FragColor=vec4(mix(c,vec3(1.),edge*.12),a);
 }`;
 
-export default function WorkRibbon({ items }: { items: RibbonItem[] }) {
+export default function WorkRibbon({ text }: { text: Ribbon }) {
+  const items = text.items;
   const trackRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -388,24 +390,24 @@ export default function WorkRibbon({ items }: { items: RibbonItem[] }) {
   }, [items]);
 
   return (
-    <section aria-label="A look at the work" className="ribbon bg-ink text-paper">
+    <section aria-label={text.label} className="ribbon bg-ink text-paper">
       {/* Scroll scene */}
       <div ref={trackRef} className="ribbon-track h-[420vh] motion-reduce:hidden">
         <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-[#8fd9bf]/10 to-transparent"
+            className="pointer-events-none absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-mint/10 to-transparent"
           />
           <div ref={crossRef} aria-hidden="true" className="absolute inset-x-5 top-[37.5%] h-px bg-paper/15 md:inset-x-8">
             <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-ink px-2 text-sm text-paper/50">+</span>
           </div>
 
           <div aria-hidden="true" className="font-display">
-            <div ref={line1Ref} className="ribbon-line top-[calc(50%-0.98em)]" style={{ transform: "translate3d(-50vw,34vh,0)" }}>
-              <span className="mr-[15vw] inline-block">BUILT AND</span>
+            <div ref={line1Ref} className="ribbon-line ribbon-line-1" style={{ transform: "translate3d(-50vw,34vh,0)" }}>
+              <span className="mr-[15vw] inline-block">{text.line1}</span>
             </div>
-            <div ref={line2Ref} className="ribbon-line top-[calc(50%+0.03em)]" style={{ transform: "translate3d(50vw,34vh,0)" }}>
-              <span className="ml-[15vw] inline-block text-[#8fd9bf]">SHIPPED</span>
+            <div ref={line2Ref} className="ribbon-line ribbon-line-2" style={{ transform: "translate3d(50vw,34vh,0)" }}>
+              <span className="ml-[15vw] inline-block text-mint">{text.line2}</span>
             </div>
           </div>
           <p
@@ -413,7 +415,7 @@ export default function WorkRibbon({ items }: { items: RibbonItem[] }) {
             className="ribbon-caption absolute left-1/2 w-[19em] text-center text-[clamp(10px,0.8vw,13px)] font-medium uppercase leading-snug tracking-wider text-paper/80"
             style={{ transform: "translate(-50%,34vh)" }}
           >
-            Screens from products I designed, built and put in production.
+            {text.caption}
           </p>
 
           <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 block h-full w-full" />
@@ -440,9 +442,11 @@ export default function WorkRibbon({ items }: { items: RibbonItem[] }) {
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-5 bottom-6 flex items-end justify-between gap-6 text-xs uppercase tracking-widest text-paper/60 md:inset-x-8"
           >
-            <span className="hidden sm:block">Laravel / Next.js / MySQL / AI</span>
+            <span className="hidden sm:block" dir="ltr">
+              Laravel / Next.js / MySQL / AI
+            </span>
             <span className="flex items-center gap-3">
-              Keep scrolling
+              {text.hint}
               <span className="ribbon-scroll-line" />
             </span>
           </div>
@@ -452,7 +456,8 @@ export default function WorkRibbon({ items }: { items: RibbonItem[] }) {
       {/* Same screens without motion */}
       <div className="ribbon-static mx-auto hidden max-w-6xl px-5 py-20 motion-reduce:block md:px-8">
         <p className="font-display text-4xl font-extrabold tracking-tight md:text-6xl">
-          Built and <span className="text-[#8fd9bf]">shipped</span>
+          {text.staticBefore}
+          <span className="text-mint">{text.staticAccent}</span>
         </p>
         <ul className="mt-10 grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
@@ -461,7 +466,7 @@ export default function WorkRibbon({ items }: { items: RibbonItem[] }) {
                 <span className="relative block aspect-[21/11] overflow-hidden rounded-lg border border-white/10">
                   <Image src={item.image} alt="" fill sizes="(min-width: 1024px) 360px, 100vw" className="object-cover" />
                 </span>
-                <span className="mt-3 block text-sm font-semibold text-paper/85 group-hover:text-[#8fd9bf]">{item.title}</span>
+                <span className="mt-3 block text-sm font-semibold text-paper/85 group-hover:text-mint">{item.title}</span>
               </a>
             </li>
           ))}
