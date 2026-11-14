@@ -131,6 +131,17 @@ const experience = [
   },
 ];
 
+const heroStack = [
+  "Laravel", "Next.js", "TypeScript", "MySQL", "PostgreSQL", "Livewire", "Filament",
+  "Claude API", "OpenAI API", "Tailwind CSS", "Docker", "RabbitMQ", "PHPUnit", "REST APIs",
+];
+
+const numbers = [
+  { value: 6, label: "Products and systems built" },
+  { value: 4, label: "Live demos you can open today" },
+  { value: 3, label: "Developers on the team I lead" },
+];
+
 const skills = [
   { group: "Backend", items: ["Laravel", "PHP", "Livewire", "Filament", "REST APIs", "Java & Spring Boot"] },
   { group: "Frontend", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Blade"] },
@@ -194,11 +205,11 @@ export default function Portfolio() {
               maxDevicePixelRatio={1.5}
             />
           </div>
-          <div className="mx-auto max-w-6xl px-5 pb-20 pt-16 md:px-8 md:pb-28 md:pt-24">
-          <div className="grid items-center gap-12 md:grid-cols-[1fr_auto]">
+          <div className="mx-auto max-w-6xl px-5 pb-16 pt-14 md:px-8 md:pb-24 md:pt-20">
+          <div className="grid items-center gap-14 md:grid-cols-[1fr_auto] md:gap-20">
             <div className="max-w-3xl">
               <p className="reveal mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-sm font-medium text-muted">
-                <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
+                <span className="live-dot" aria-hidden="true" />
                 Open to Backend and Full Stack roles, remote or relocation
               </p>
               <BlurText
@@ -247,20 +258,51 @@ export default function Portfolio() {
                 </a>
               </div>
             </div>
-            <div style={{ animationDelay: "200ms" }} className="reveal-photo relative mx-auto h-56 w-56 md:h-72 md:w-72">
-              <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-[2rem] bg-accent-soft" aria-hidden="true" />
-              <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-line bg-surface">
-                <Image
-                  src="/images/MY Profile.jpeg"
-                  alt="Portrait of Abdalaziz Almufti"
-                  fill
-                  sizes="(min-width: 768px) 288px, 224px"
-                  className="object-cover"
-                  priority
-                />
+            <div style={{ animationDelay: "200ms" }} className="reveal-photo relative mx-auto w-60 md:w-[21rem]">
+              <div data-parallax="-36" className="relative aspect-[4/5]">
+                <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-[2rem] bg-accent-soft" aria-hidden="true" />
+                <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-line bg-surface">
+                  <Image
+                    src="/images/MY Profile.jpeg"
+                    alt="Portrait of Abdalaziz Almufti"
+                    fill
+                    sizes="(min-width: 768px) 336px, 240px"
+                    className="object-cover object-[50%_22%]"
+                    priority
+                  />
+                </div>
+              </div>
+              <a
+                href={healthyLife.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-parallax="-70"
+                className="hero-chip float-a absolute -left-4 bottom-10 md:-left-14"
+              >
+                <span className="live-dot" aria-hidden="true" />
+                <span>
+                  <span className="block text-xs text-muted">HealthyLife AI</span>
+                  <span className="block font-semibold text-ink">Live in production</span>
+                </span>
+              </a>
+              <div data-parallax="-12" className="hero-chip float-b absolute -right-3 top-8 md:-right-10" aria-hidden="true">
+                <span>
+                  <span className="block text-xs text-muted">Role</span>
+                  <span className="block font-semibold text-ink">Founder &amp; Tech Lead</span>
+                </span>
               </div>
             </div>
           </div>
+          </div>
+
+          <div className="marquee border-t border-line/70" aria-label="Technologies I work with">
+            <ul className="marquee-row">
+              {[...heroStack, ...heroStack].map((t, i) => (
+                <li key={i} aria-hidden={i >= heroStack.length || undefined}>
+                  {t}
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
@@ -341,32 +383,43 @@ export default function Portfolio() {
               </div>
             </article>
 
-            <div className="mt-16 divide-y divide-line border-y border-line">
-              {projects.map((project) => (
-                <article id={project.id} data-reveal key={project.title} className="grid gap-6 py-10 md:grid-cols-[320px_1fr] md:gap-10">
-                  <BrowserFrame label={project.frame} className="self-start">
-                    <div className="project-shot relative aspect-[16/10] overflow-hidden bg-paper">
-                    <Image
-                      src={project.image}
-                      alt={`Screenshot of ${project.title}`}
-                      fill
-                      sizes="(min-width: 768px) 320px, 100vw"
-                      className="object-cover object-top"
-                    />
-                    </div>
-                  </BrowserFrame>
-                  <div>
-                    <h3 className="font-display text-2xl font-bold tracking-tight text-ink">{project.title}</h3>
-                    <p className="mt-3 max-w-2xl leading-relaxed text-ink/85">{project.summary}</p>
-                    <p className="mt-2 max-w-2xl leading-relaxed text-muted">{project.detail}</p>
-                    <ul className="mt-4 flex flex-wrap gap-2" aria-label="Technologies">
+            <div className="mt-20 space-y-20 md:mt-28 md:space-y-32">
+              {projects.map((project, i) => (
+                <article
+                  id={project.id}
+                  key={project.title}
+                  className="grid items-center gap-8 md:grid-cols-[1.25fr_1fr] md:gap-14"
+                >
+                  <div data-shot className={i % 2 ? "md:order-2" : ""}>
+                    <BrowserFrame label={project.frame}>
+                      <div className="project-shot relative aspect-[16/9] overflow-hidden bg-paper">
+                        <Image
+                          src={project.image}
+                          alt={`Screenshot of ${project.title}`}
+                          fill
+                          sizes="(min-width: 1152px) 600px, (min-width: 768px) 55vw, 100vw"
+                          className="object-cover object-top"
+                        />
+                      </div>
+                    </BrowserFrame>
+                  </div>
+                  <div data-stagger>
+                    <p className="text-sm font-medium tabular-nums text-muted">
+                      0{i + 2} <span className="mx-1 text-line">/</span> 0{projects.length + 1}
+                    </p>
+                    <h3 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">
+                      {project.title}
+                    </h3>
+                    <p className="mt-4 leading-relaxed text-ink/85">{project.summary}</p>
+                    <p className="mt-2 leading-relaxed text-muted">{project.detail}</p>
+                    <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
                       {project.tech.map((t) => (
                         <li key={t} className="rounded-md bg-accent-soft px-2.5 py-1 text-sm font-medium text-accent">
                           {t}
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+                    <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
                       {project.links.map((link) => (
                         <TextLink key={link.label} href={link.url}>
                           {link.label}
@@ -378,7 +431,7 @@ export default function Portfolio() {
               ))}
             </div>
 
-            <div data-reveal className="mt-10 grid gap-6 md:grid-cols-2">
+            <div data-reveal className="mt-20 grid gap-6 border-t border-line pt-10 md:mt-28 md:grid-cols-2">
               {moreWork.map((item) => (
                 <a
                   key={item.title}
@@ -396,23 +449,56 @@ export default function Portfolio() {
         </section>
 
         {/* Experience */}
-        <section aria-labelledby="experience" className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
-          <SectionHeading id="experience" title="Experience and education" />
-          <ol className="relative border-l-2 border-line pl-8">
-            {experience.map((item) => (
-              <li data-reveal key={item.role + item.org} className="relative pb-10 last:pb-0">
-                <span
-                  className="absolute -left-[41px] top-1.5 h-4 w-4 rounded-full border-4 border-paper bg-accent"
-                  aria-hidden="true"
-                />
-                <p className="text-sm font-medium text-muted">{item.period}</p>
-                <h3 className="mt-1 font-display text-xl font-bold text-ink">
-                  {item.role} <span className="font-medium text-muted">at {item.org}</span>
-                </h3>
-                <p className="mt-2 max-w-2xl leading-relaxed text-ink/80">{item.text}</p>
-              </li>
-            ))}
-          </ol>
+        <section aria-labelledby="experience" className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+          <div className="grid gap-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-16">
+            <div className="self-start md:sticky md:top-28">
+              <h2
+                data-reveal
+                id="experience"
+                className="font-display text-3xl font-bold tracking-tight text-ink md:text-4xl"
+              >
+                Experience and education
+              </h2>
+              <p data-reveal className="mt-4 max-w-sm leading-relaxed text-muted">
+                A little over two years from trainee to running a product in production, with a software degree finished along the
+                way.
+              </p>
+              <dl data-stagger className="mt-8 divide-y divide-line border-y border-line">
+                {numbers.map((n) => (
+                  <div key={n.label} className="flex items-baseline gap-5 py-4">
+                    <dt className="order-2 text-ink/80">{n.label}</dt>
+                    <dd className="order-1 w-12 font-display text-4xl font-extrabold tabular-nums text-accent">
+                      <CountUp to={n.value} from={0} duration={1.2} />
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            <ol data-timeline className="relative pl-8">
+              <span className="absolute bottom-0 left-0 top-2 w-0.5 bg-line" aria-hidden="true" />
+              <span
+                data-timeline-fill
+                className="absolute bottom-0 left-0 top-2 w-0.5 origin-top bg-accent"
+                aria-hidden="true"
+              />
+              {experience.map((item) => (
+                <li data-reveal key={item.role + item.org} className="relative pb-6 last:pb-0">
+                  <span
+                    className="absolute -left-[39px] top-7 h-4 w-4 rounded-full border-4 border-paper bg-accent"
+                    aria-hidden="true"
+                  />
+                  <div className="lift rounded-2xl border border-line bg-surface p-6">
+                    <p className="text-sm font-medium text-muted">{item.period}</p>
+                    <h3 className="mt-1 font-display text-xl font-bold text-ink">
+                      {item.role} <span className="font-medium text-muted">at {item.org}</span>
+                    </h3>
+                    <p className="mt-2 leading-relaxed text-ink/80">{item.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
         </section>
 
         {/* Skills & certifications */}

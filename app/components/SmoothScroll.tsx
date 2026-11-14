@@ -51,6 +51,39 @@ export default function SmoothScroll() {
         });
       });
 
+      // Project screenshots open up as they enter.
+      gsap.utils.toArray<HTMLElement>("[data-shot]").forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 48,
+          scale: 0.94,
+          duration: 1.1,
+          ease: "power3.out",
+          clearProps: "opacity,transform",
+          scrollTrigger: { trigger: el, start: "top 85%", once: true },
+        });
+      });
+
+      // Elements that drift at their own speed while the page scrolls.
+      gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
+        gsap.to(el, {
+          y: Number(el.dataset.parallax),
+          ease: "none",
+          scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 0.4 },
+        });
+      });
+
+      // The timeline line fills in as it is read.
+      gsap.utils.toArray<HTMLElement>("[data-timeline]").forEach((list) => {
+        const fill = list.querySelector("[data-timeline-fill]");
+        if (!fill) return;
+        gsap.fromTo(
+          fill,
+          { scaleY: 0 },
+          { scaleY: 1, ease: "none", scrollTrigger: { trigger: list, start: "top 70%", end: "bottom 60%", scrub: 0.4 } },
+        );
+      });
+
       // Reading progress along the bottom edge of the header.
       const bar = document.querySelector<HTMLElement>("[data-scroll-progress]");
       if (bar) {
