@@ -17,7 +17,7 @@ export default function Navbar() {
             <a
               key={item.name}
               href={item.href}
-              className="hidden rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-ink md:block"
+              className="nav-link hidden rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-ink md:block"
             >
               {item.name}
             </a>
@@ -31,6 +31,11 @@ export default function Navbar() {
           </a>
         </nav>
       </div>
+      <span
+        data-scroll-progress
+        aria-hidden="true"
+        className="absolute inset-x-0 -bottom-px h-0.5 origin-left scale-x-0 bg-accent"
+      />
     </header>
   );
 }

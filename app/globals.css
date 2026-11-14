@@ -118,3 +118,125 @@ button:focus-visible {
 article:hover .project-shot img {
   transform: scale(1.035);
 }
+
+/* ---------- Work ribbon (scroll scene) ---------- */
+.ribbon-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-weight: 700;
+  font-size: clamp(40px, 6.7vw, 130px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  text-align: center;
+  will-change: transform;
+}
+
+.ribbon-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--paper) 80%, transparent);
+  opacity: 0;
+  transition: color 200ms ease;
+}
+
+.ribbon-label-arrow {
+  color: #8fd9bf;
+  transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.ribbon-label:hover,
+.ribbon-label[data-hover] {
+  color: #8fd9bf;
+}
+
+.ribbon-label:hover .ribbon-label-arrow,
+.ribbon-label[data-hover] .ribbon-label-arrow {
+  transform: translateY(3px);
+}
+
+.ribbon-scroll-line {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 28px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--paper) 20%, transparent);
+}
+
+.ribbon-scroll-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #8fd9bf;
+  animation: scroll-line 1.8s cubic-bezier(0.6, 0, 0.2, 1) infinite;
+}
+
+@keyframes scroll-line {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* No WebGL: show the plain grid instead of the scene */
+.ribbon-track[data-fallback] {
+  display: none;
+}
+
+.ribbon-track[data-fallback] + .ribbon-static {
+  display: block;
+}
+
+/* ---------- Small interactions ---------- */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.25rem;
+  height: 1.5px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.lift,
+.skill-card {
+  transition:
+    transform 400ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 300ms ease,
+    box-shadow 400ms ease;
+}
+
+.lift:hover,
+.skill-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 22px 44px -28px rgba(18, 33, 29, 0.45);
+}
+
+/* sits just under the two headline lines, whatever their size */
+.ribbon-caption {
+  top: calc(50% + 1.35 * clamp(40px, 6.7vw, 130px));
+}

@@ -38,6 +38,29 @@ export default function SmoothScroll() {
         });
       });
 
+      // Lists and card groups come in one child after another.
+      gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((group) => {
+        gsap.from(group.children, {
+          opacity: 0,
+          y: 22,
+          duration: 0.7,
+          ease: "power3.out",
+          stagger: 0.08,
+          clearProps: "opacity,transform",
+          scrollTrigger: { trigger: group, start: "top 86%", once: true },
+        });
+      });
+
+      // Reading progress along the bottom edge of the header.
+      const bar = document.querySelector<HTMLElement>("[data-scroll-progress]");
+      if (bar) {
+        gsap.to(bar, {
+          scaleX: 1,
+          ease: "none",
+          scrollTrigger: { start: 0, end: "max", scrub: 0.3 },
+        });
+      }
+
       // In-page links: scroll through Lenis, measured without the reveal transforms
       // so the heading always lands just below the sticky header.
       const documentY = (el: HTMLElement) => {

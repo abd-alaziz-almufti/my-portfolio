@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import BrowserFrame from "./components/BrowserFrame";
 import ProductShowcase from "./components/ProductShowcase";
 import SmoothScroll from "./components/SmoothScroll";
+import WorkRibbon from "./components/WorkRibbon";
 import { BlurText, LightRays, StarBorder, CountUp } from "./components/react-bits";
 
 const EMAIL = "abedalmufti@gmail.com";
@@ -39,6 +40,7 @@ const projects = [
       "Property, unit, lease, payment, expense and maintenance workflows for real estate companies. Built with a partner as a Laravel + Filament backend and a Next.js frontend.",
     detail:
       "Tenant isolation through a custom CompanyScope on every query, role-based access for five roles with Spatie Permission and Filament Shield, queued jobs and PHPUnit tests.",
+    id: "project-real-estate",
     image: "/images/Project1.png",
     frame: "Real estate SaaS · public site",
     tech: ["Laravel", "Filament", "Next.js", "MySQL"],
@@ -54,6 +56,7 @@ const projects = [
       "A personal-finance app for expenses, budgets, income and alerts that asks the OpenAI API for a spending analysis and a budget plan for each user.",
     detail:
       "AI answers are held to a JSON contract, validated and parsed defensively, with rate limits and API failures handled and covered by tests using OpenAI fakes.",
+    id: "project-expense-manager",
     image: "/images/project2.png",
     frame: "Expense manager · dashboard",
     tech: ["Laravel", "Livewire", "Filament", "OpenAI API"],
@@ -68,6 +71,7 @@ const projects = [
       "My graduation project at the Islamic University of Gaza, defended with distinction: one place for university services, with a ticketing system, announcements and an admin portal.",
     detail:
       "Ticket routing with chat-style replies, notifications, admission calculations, instant search and an approval flow for profile changes, with eager loading and caching.",
+    id: "project-university",
     image: "/images/project3.png",
     frame: "Unified University Platform · home",
     tech: ["Laravel", "Livewire", "Filament", "PostgreSQL"],
@@ -76,6 +80,15 @@ const projects = [
       { label: "Code", url: "https://github.com/abd-alaziz-almufti/uup-iug" },
     ],
   },
+];
+
+const ribbonItems = [
+  { title: "HealthyLife AI · Clinic dashboard", image: "/images/hl-dashboard.webp", href: "#project-healthylife" },
+  { title: "Real estate SaaS", image: "/images/Project1.png", href: "#project-real-estate" },
+  { title: "HealthyLife AI · Meal plan builder", image: "/images/hl-meal-plan.webp", href: "#project-healthylife" },
+  { title: "Smart expense manager", image: "/images/project2.png", href: "#project-expense-manager" },
+  { title: "HealthyLife AI · Adherence alerts", image: "/images/hl-alerts.webp", href: "#project-healthylife" },
+  { title: "Unified University Platform", image: "/images/project3.png", href: "#project-university" },
 ];
 
 const moreWork = [
@@ -251,12 +264,14 @@ export default function Portfolio() {
           </div>
         </section>
 
+        <WorkRibbon items={ribbonItems} />
+
         {/* Featured: HealthyLife */}
-        <section aria-labelledby="work" className="border-y border-line bg-surface">
+        <section aria-labelledby="work" className="border-b border-line bg-surface">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
             <SectionHeading id="work" title="Selected work" note="What I've built, starting with the product I run." />
 
-            <article data-reveal className="rounded-3xl bg-ink p-7 text-white md:p-12">
+            <article id="project-healthylife" data-reveal className="rounded-3xl bg-ink p-7 text-white md:p-12">
               <div className="grid gap-10 md:grid-cols-[1.4fr_1fr]">
               <div>
                 <p className="text-sm font-semibold text-[#8fd9bf]">Current project</p>
@@ -266,7 +281,7 @@ export default function Portfolio() {
                   meal plans from a library of local dishes, and get alerted between visits when a patient starts to
                   slip.
                 </p>
-                <ul className="mt-6 space-y-3">
+                <ul data-stagger className="mt-6 space-y-3">
                   {healthyLife.built.map((item) => (
                     <li key={item} className="flex gap-3 leading-relaxed text-white/85">
                       <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#8fd9bf]" aria-hidden="true" />
@@ -328,7 +343,7 @@ export default function Portfolio() {
 
             <div className="mt-16 divide-y divide-line border-y border-line">
               {projects.map((project) => (
-                <article data-reveal key={project.title} className="grid gap-6 py-10 md:grid-cols-[320px_1fr] md:gap-10">
+                <article id={project.id} data-reveal key={project.title} className="grid gap-6 py-10 md:grid-cols-[320px_1fr] md:gap-10">
                   <BrowserFrame label={project.frame} className="self-start">
                     <div className="project-shot relative aspect-[16/10] overflow-hidden bg-paper">
                     <Image
@@ -370,7 +385,7 @@ export default function Portfolio() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group rounded-2xl border border-line p-6 transition-colors hover:border-accent"
+                  className="lift group rounded-2xl border border-line p-6 hover:border-accent"
                 >
                   <h3 className="font-display text-lg font-bold text-ink group-hover:text-accent">{item.title}</h3>
                   <p className="mt-1 text-muted">{item.text}</p>
@@ -404,13 +419,16 @@ export default function Portfolio() {
         <section aria-labelledby="skills" className="border-t border-line">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
             <SectionHeading id="skills" title="Skills" />
-            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-              {skills.map((s) => (
-                <div data-reveal key={s.group}>
-                  <h3 className="font-display text-lg font-bold text-ink">{s.group}</h3>
-                  <ul className="mt-3 space-y-1.5 text-ink/80">
+            <div data-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {skills.map((s, i) => (
+                <div key={s.group} className="skill-card rounded-2xl border border-line bg-surface p-6">
+                  <p className="text-sm font-medium tabular-nums text-muted">0{i + 1}</p>
+                  <h3 className="mt-1 font-display text-xl font-bold text-ink">{s.group}</h3>
+                  <ul className="mt-4 flex flex-wrap gap-2">
                     {s.items.map((item) => (
-                      <li key={item}>{item}</li>
+                      <li key={item} className="rounded-md bg-accent-soft px-2.5 py-1 text-sm font-medium text-accent">
+                        {item}
+                      </li>
                     ))}
                   </ul>
                 </div>
