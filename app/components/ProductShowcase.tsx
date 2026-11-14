@@ -43,7 +43,7 @@ export default function ProductShowcase({ text }: { text: Showcase }) {
             tabIndex={active === i ? 0 : -1}
             onClick={() => setActive(i)}
             className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-              active === i ? "bg-white text-ink" : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"
+              active === i ? "bg-white text-night" : "bg-white/10 text-white/75 hover:bg-white/15 hover:text-white"
             }`}
           >
             {view.tab}

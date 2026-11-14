@@ -1,6 +1,7 @@
 export type Lang = "en" | "ar";
 
 export const EMAIL = "abedalmufti@gmail.com";
+export const SITE_URL = "https://my-portfolio-zeta-three-9gki3si54m.vercel.app";
 export const CV_URL = "/Abdalaziz_Almufti_CV.pdf";
 
 export const links = {
@@ -53,6 +54,7 @@ const en = {
     cv: "Download CV",
     cvShort: "CV",
     main: "Main",
+    theme: "Switch between light and dark",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     switchTo: { href: "/ar", label: "العربية", short: "ع", lang: "ar", title: "النسخة العربية" },
@@ -262,6 +264,7 @@ const ar: Content = {
     cv: "تحميل السيرة الذاتية",
     cvShort: "السيرة",
     main: "التنقل الرئيسي",
+    theme: "التبديل بين الوضع الفاتح والداكن",
     openMenu: "فتح القائمة",
     closeMenu: "إغلاق القائمة",
     switchTo: { href: "/", label: "English", short: "EN", lang: "en", title: "English version" },

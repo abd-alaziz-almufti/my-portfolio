@@ -5,7 +5,7 @@ import ProductShowcase from "./ProductShowcase";
 import SmoothScroll from "./SmoothScroll";
 import WorkRibbon from "./WorkRibbon";
 import { BlurText, LightRays, StarBorder, CountUp } from "./react-bits";
-import { content, links, heroStack, EMAIL, CV_URL, type Lang } from "../content";
+import { content, links, heroStack, EMAIL, CV_URL, SITE_URL, type Lang } from "../content";
 
 function SectionHeading({ id, title, note }: { id: string; title: string; note?: string }) {
   return (
@@ -35,14 +35,35 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
   const t = content[lang];
   const hl = t.healthyLife;
 
+  const person = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: t.name,
+    alternateName: lang === "ar" ? content.en.name : content.ar.name,
+    jobTitle: "Full Stack Developer",
+    url: lang === "ar" ? `${SITE_URL}/ar` : SITE_URL,
+    image: `${SITE_URL}/images/MY%20Profile.jpeg`,
+    email: `mailto:${EMAIL}`,
+    address: { "@type": "PostalAddress", addressLocality: "Gaza", addressCountry: "PS" },
+    alumniOf: { "@type": "CollegeOrUniversity", name: "Islamic University of Gaza" },
+    worksFor: { "@type": "Organization", name: "HealthyLife AI", url: links.healthyLife },
+    knowsAbout: heroStack,
+    sameAs: [links.linkedin, links.github],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(person).replace(/</g, "\\u003c") }}
+      />
       <SmoothScroll />
       <Navbar name={t.name} nav={t.nav} />
       <main id="top" className="flex-1">
         {/* Hero */}
         <section className="relative isolate overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+          <div className="hero-glow pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
+          <div className="hero-rays pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
             <LightRays
               raysOrigin="top-right"
               raysColor="#0a7a5c"
@@ -191,7 +212,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                       href={links.healthyLife}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="rounded-full bg-white px-5 py-2.5 font-semibold text-ink transition-colors hover:bg-mint"
+                      className="rounded-full bg-white px-5 py-2.5 font-semibold text-night transition-colors hover:bg-mint"
                     >
                       {hl.visit}
                     </a>
@@ -215,7 +236,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                 </div>
                 <dl className="grid self-start gap-px overflow-hidden rounded-2xl bg-white/10">
                   {hl.facts.map((fact) => (
-                    <div key={fact.label} className="bg-ink/90 px-6 py-5">
+                    <div key={fact.label} className="bg-night/90 px-6 py-5">
                       <dt className="text-sm text-white/60">{fact.label}</dt>
                       <dd className="mt-1 font-display text-xl font-bold">
                         {fact.value}
@@ -434,7 +455,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
               <a
                 href={CV_URL}
                 download
-                className="rounded-full bg-white px-5 py-2.5 font-semibold text-ink transition-colors hover:bg-mint"
+                className="rounded-full bg-white px-5 py-2.5 font-semibold text-night transition-colors hover:bg-mint"
               >
                 {t.nav.cv}
               </a>
@@ -442,7 +463,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
           </div>
         </section>
       </main>
-      <footer className="bg-ink text-white/50">
+      <footer className="bg-night text-white/50">
         <div className="mx-auto max-w-6xl border-t border-white/10 px-5 py-6 text-sm md:px-8">{t.footer}</div>
       </footer>
     </>

@@ -18,7 +18,7 @@ export default function BrowserFrame({
     >
       <div
         className={`flex items-center gap-3 border-b px-3.5 py-2.5 ${
-          dark ? "border-white/10 bg-[#22352f]" : "border-line bg-[#eef1ef]"
+          dark ? "border-white/10 bg-[#22352f]" : "border-line bg-paper"
         }`}
       >
         <div className="flex gap-1.5" aria-hidden="true">

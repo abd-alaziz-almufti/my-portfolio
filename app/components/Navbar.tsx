@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Content } from "../content";
+import ThemeToggle from "./ThemeToggle";
 
 type Nav = Content["nav"];
 
@@ -42,7 +43,7 @@ export default function Navbar({ name, nav }: { name: string; nav: Nav }) {
           <a
             href="/Abdalaziz_Almufti_CV.pdf"
             download
-            className="ms-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent"
+            className="ms-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-accent"
           >
             <span className="sm:hidden">{nav.cvShort}</span>
             <span className="hidden sm:inline">{nav.cv}</span>
@@ -58,6 +59,7 @@ export default function Navbar({ name, nav }: { name: string; nav: Nav }) {
             <span className="md:hidden">{nav.switchTo.short}</span>
             <span className="hidden md:inline">{nav.switchTo.label}</span>
           </Link>
+          <ThemeToggle label={nav.theme} className="ms-1 hidden md:grid" />
           <button
             type="button"
             aria-expanded={open}
@@ -85,6 +87,13 @@ export default function Navbar({ name, nav }: { name: string; nav: Nav }) {
               </a>
             </li>
           ))}
+          <li
+            className="flex items-center justify-between border-t border-line py-3 text-sm font-medium text-muted"
+            style={{ transitionDelay: open ? `${60 + navItems.length * 45}ms` : "0ms" }}
+          >
+            {nav.theme}
+            <ThemeToggle label={nav.theme} className="grid" />
+          </li>
         </ul>
       </div>
 

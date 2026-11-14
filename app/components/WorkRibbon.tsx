@@ -390,7 +390,7 @@ export default function WorkRibbon({ text }: { text: Ribbon }) {
   }, [items]);
 
   return (
-    <section aria-label={text.label} className="ribbon bg-ink text-paper">
+    <section aria-label={text.label} className="ribbon bg-night text-snow">
       {/* Scroll scene */}
       <div ref={trackRef} className="ribbon-track h-[420vh] motion-reduce:hidden">
         <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden">
@@ -398,8 +398,8 @@ export default function WorkRibbon({ text }: { text: Ribbon }) {
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-mint/10 to-transparent"
           />
-          <div ref={crossRef} aria-hidden="true" className="absolute inset-x-5 top-[37.5%] h-px bg-paper/15 md:inset-x-8">
-            <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-ink px-2 text-sm text-paper/50">+</span>
+          <div ref={crossRef} aria-hidden="true" className="absolute inset-x-5 top-[37.5%] h-px bg-snow/15 md:inset-x-8">
+            <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-night px-2 text-sm text-snow/50">+</span>
           </div>
 
           <div aria-hidden="true" className="font-display">
@@ -412,7 +412,7 @@ export default function WorkRibbon({ text }: { text: Ribbon }) {
           </div>
           <p
             ref={captionRef}
-            className="ribbon-caption absolute left-1/2 w-[19em] text-center text-[clamp(10px,0.8vw,13px)] font-medium uppercase leading-snug tracking-wider text-paper/80"
+            className="ribbon-caption absolute left-1/2 w-[19em] text-center text-[clamp(10px,0.8vw,13px)] font-medium uppercase leading-snug tracking-wider text-snow/80"
             style={{ transform: "translate(-50%,34vh)" }}
           >
             {text.caption}
@@ -440,7 +440,7 @@ export default function WorkRibbon({ text }: { text: Ribbon }) {
           <div
             ref={hintRef}
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-5 bottom-6 flex items-end justify-between gap-6 text-xs uppercase tracking-widest text-paper/60 md:inset-x-8"
+            className="pointer-events-none absolute inset-x-5 bottom-6 flex items-end justify-between gap-6 text-xs uppercase tracking-widest text-snow/60 md:inset-x-8"
           >
             <span className="hidden sm:block" dir="ltr">
               Laravel / Next.js / MySQL / AI
@@ -466,7 +466,7 @@ export default function WorkRibbon({ text }: { text: Ribbon }) {
                 <span className="relative block aspect-[21/11] overflow-hidden rounded-lg border border-white/10">
                   <Image src={item.image} alt="" fill sizes="(min-width: 1024px) 360px, 100vw" className="object-cover" />
                 </span>
-                <span className="mt-3 block text-sm font-semibold text-paper/85 group-hover:text-mint">{item.title}</span>
+                <span className="mt-3 block text-sm font-semibold text-snow/85 group-hover:text-mint">{item.title}</span>
               </a>
             </li>
           ))}
