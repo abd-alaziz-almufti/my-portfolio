@@ -1,2 +1,8 @@
 /node_modules/ 
 /.next/ 
+
+# TypeScript build cache
+*.tsbuildinfo
+.vercel
+.env*
+.DS_Store
