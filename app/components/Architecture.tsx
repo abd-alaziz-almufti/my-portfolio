@@ -75,6 +75,20 @@ export default function Architecture({ text }: { text: Arch }) {
           {text.deploy}
         </span>
       </div>
+
+      <div className="mt-10">
+        <p className="arch-label">{text.decisionsTitle}</p>
+        <ol className="mt-4 grid gap-3 md:grid-cols-2">
+          {text.decisions.map((decision, i) => (
+            <li key={decision} className="decision">
+              <span className="decision-num" dir="ltr" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="text-sm leading-relaxed text-white/85">{decision}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
     </figure>
   );
 }

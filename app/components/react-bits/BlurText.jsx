@@ -333,7 +333,7 @@ const BlurText = ({
 
     return (
       <motion.span
-        aria-hidden="true"
+        aria-hidden={animateBy === 'words' ? undefined : 'true'}
         key={piece.key}
         className="inline-block will-change-[transform,filter,opacity]"
         style={style}
@@ -365,7 +365,7 @@ const BlurText = ({
         onPointerEnter={trigger === 'hover' ? handleEnter : undefined}
         onClick={trigger === 'click' ? replay : undefined}
       >
-        <span className="sr-only select-none">{text}</span>
+        {animateBy !== 'words' && <span className="sr-only select-none">{text}</span>}
         {groups.map((indices, w) => (
           <span
             key={`word-${w}`}
