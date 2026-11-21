@@ -35,6 +35,7 @@ function TextLink({ href, children }: { href: string; children: React.ReactNode 
 export default function PortfolioPage({ lang }: { lang: Lang }) {
   const t = content[lang];
   const hl = t.healthyLife;
+  const scopeMail = `mailto:${EMAIL}?subject=${encodeURIComponent(t.hero.ctaSubject)}`;
 
   const person = {
     "@context": "https://schema.org",
@@ -113,7 +114,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                 <div style={{ animationDelay: "270ms" }} className="reveal mt-9 flex flex-wrap gap-3">
                   <StarBorder
                     as="a"
-                    href="#work"
+                    href={scopeMail}
                     radius={9999}
                     backgroundColor="#0a7a5c"
                     textColor="#ffffff"
@@ -123,32 +124,37 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                     clickPulse={false}
                     className="font-semibold"
                   >
-                    {t.hero.seeWork}
+                    {t.hero.ctaPrimary}
                   </StarBorder>
                   <a
-                    href={CV_URL}
-                    download
+                    href="#work"
                     className="rounded-full border border-ink/20 bg-surface px-6 py-3 font-semibold text-ink transition-colors hover:border-ink"
                   >
-                    {t.nav.cv}
-                  </a>
-                  <a
-                    href={`mailto:${EMAIL}`}
-                    dir="ltr"
-                    className="rounded-full px-2 py-3 font-semibold text-ink underline decoration-ink/20 underline-offset-4 hover:decoration-ink sm:px-6"
-                  >
-                    {EMAIL}
+                    {t.hero.seeWork}
                   </a>
                 </div>
                 <ul style={{ animationDelay: "360ms" }} className="reveal mt-12 grid max-w-xl grid-cols-3 gap-4 border-t border-line pt-8">
-                  {t.hero.stats.map((s) => (
-                    <li key={s.label}>
-                      <p className="stat-value font-display text-3xl font-extrabold tracking-tight md:text-4xl" dir="ltr">
-                        {s.value}
-                      </p>
-                      <p className="mt-1 text-sm text-muted">{s.label}</p>
-                    </li>
-                  ))}
+                  {t.hero.stats.map((s) => {
+                    const body = (
+                      <>
+                        <span className="stat-value block font-display text-3xl font-extrabold tracking-tight md:text-4xl" dir="ltr">
+                          {s.value}
+                        </span>
+                        <span className="mt-1 block text-sm text-muted">{s.label}</span>
+                      </>
+                    );
+                    return (
+                      <li key={s.label}>
+                        {s.href ? (
+                          <a href={s.href} className="stat-link group block">
+                            {body}
+                          </a>
+                        ) : (
+                          body
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div style={{ animationDelay: "200ms" }} className="reveal-photo relative mx-auto w-60 md:w-[21rem]">
@@ -234,6 +240,10 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                       </li>
                     ))}
                   </ul>
+                  <div className="mt-6 rounded-2xl border border-mint/25 bg-mint/[0.06] p-5">
+                    <p className="text-sm font-semibold text-mint">{hl.outcomeLabel}</p>
+                    <p className="mt-2 leading-relaxed text-white/85">{hl.outcome}</p>
+                  </div>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <a
                       href={links.healthyLife}
@@ -261,22 +271,28 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                     </a>
                   </div>
                 </div>
-                <dl className="grid self-start gap-px overflow-hidden rounded-2xl bg-white/10">
-                  {hl.facts.map((fact) => (
-                    <div key={fact.label} className="bg-night/90 px-6 py-5">
-                      <dt className="text-sm text-white/60">{fact.label}</dt>
-                      <dd className="mt-1 font-display text-xl font-bold">
-                        {fact.value}
-                        {fact.year && (
-                          <>
-                            {" "}
-                            <CountUp to={fact.year} from={2020} duration={1.4} />
-                          </>
-                        )}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
+                <div className="space-y-4 self-start">
+                  <dl className="grid gap-px overflow-hidden rounded-2xl bg-white/10">
+                    {hl.facts.map((fact) => (
+                      <div key={fact.label} className="bg-night/90 px-6 py-5">
+                        <dt className="text-sm text-white/60">{fact.label}</dt>
+                        <dd className="mt-1 font-display text-xl font-bold">
+                          {fact.value}
+                          {fact.year && (
+                            <>
+                              {" "}
+                              <CountUp to={fact.year} from={2020} duration={1.4} />
+                            </>
+                          )}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-5">
+                    <p className="text-sm font-semibold text-sun">{hl.ownershipLabel}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">{hl.ownership}</p>
+                  </div>
+                </div>
               </div>
               <div className="mt-12 border-t border-white/10 pt-10">
                 <h4 className="font-display text-xl font-bold">{hl.architecture.title}</h4>
@@ -326,6 +342,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                         <div key={key}>
                           <dt className="text-xs font-semibold uppercase tracking-wider text-accent">
                             {t.work.caseLabels[key]}
+                            <span className="sr-only">: </span>
                           </dt>
                           <dd className="mt-1 leading-relaxed text-muted">{project[key]}</dd>
                         </div>
@@ -383,7 +400,10 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                   </span>
                   <h3 className="mt-3 font-display text-xl font-bold text-ink">{item.title}</h3>
                   <p className="mt-2 flex-1 leading-relaxed text-muted">{item.text}</p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent">
+                  <p className="mt-5 border-t border-line pt-4 text-sm leading-relaxed text-ink/70">
+                    {item.tech}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent">
                     {item.proof}
                     <span
                       aria-hidden="true"
@@ -409,21 +429,39 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                   </li>
                 ))}
               </ol>
-              <div className="mt-10 flex flex-wrap gap-3">
+              <div className="mt-10 grid gap-4 border-t border-white/10 pt-8 md:grid-cols-2">
+                {[
+                  { title: t.services.firstWeekTitle, items: t.services.firstWeek },
+                  { title: t.services.needTitle, items: t.services.need },
+                ].map((block) => (
+                  <div key={block.title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+                    <h4 className="font-display text-lg font-bold">{block.title}</h4>
+                    <ul className="mt-4 space-y-2.5">
+                      {block.items.map((item) => (
+                        <li key={item} className="flex gap-3 text-sm leading-relaxed text-white/80">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-mint" aria-hidden="true" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 max-w-3xl leading-relaxed text-white/75">{t.services.timeline}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href={scopeMail}
+                  className="rounded-full bg-white px-5 py-2.5 font-semibold text-night transition-colors hover:bg-mint"
+                >
+                  {t.hero.ctaPrimary}
+                </a>
                 <a
                   href={links.brightGaza}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-white px-5 py-2.5 font-semibold text-night transition-colors hover:bg-mint"
-                >
-                  {t.services.cta}
-                </a>
-                <a
-                  href={`mailto:${EMAIL}`}
-                  dir="ltr"
                   className="rounded-full border border-white/25 px-5 py-2.5 font-semibold transition-colors hover:border-white"
                 >
-                  {EMAIL}
+                  {t.services.cta}
                 </a>
               </div>
             </div>
@@ -529,7 +567,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
               })}
             </div>
 
-            <div data-reveal className="mt-16 rounded-3xl border border-line bg-surface p-7 md:p-10">
+            <div id="certifications" data-reveal className="mt-16 rounded-3xl border border-line bg-surface p-7 md:p-10">
               <h3 className="font-display text-2xl font-bold text-ink">{t.skills.certsTitle}</h3>
               <ul className="mt-6 divide-y divide-line">
                 {t.skills.certifications.map((c) => (

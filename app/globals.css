@@ -823,3 +823,81 @@ html[dir="rtl"] .skill-core {
     radial-gradient(70% 120% at 0% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
     var(--surface);
 }
+
+/* ---------- One text node per control ----------
+   Short labels and menu numbers are drawn by CSS, so crawlers and text tools read
+   "Download CV" and "Work" once, instead of "CVDownload CV" or "Work01". */
+@media (max-width: 639.98px) {
+  .short-label-sm .short-label-full {
+    display: none;
+  }
+  .short-label-sm::after {
+    content: attr(data-short);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .short-label-md .short-label-full {
+    display: none;
+  }
+  .short-label-md::after {
+    content: attr(data-short);
+  }
+}
+
+.mobile-menu ul {
+  counter-reset: menu-item;
+}
+
+.menu-link {
+  counter-increment: menu-item;
+}
+
+.menu-link::after {
+  content: counter(menu-item, decimal-leading-zero);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+/* Key decisions under the HealthyLife architecture diagram */
+.decision {
+  display: flex;
+  gap: 0.9rem;
+  border-radius: 1rem;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background: rgb(255 255 255 / 0.035);
+  padding: 1rem 1.1rem;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+.decision:hover {
+  border-color: color-mix(in srgb, var(--color-mint) 45%, transparent);
+  background: rgb(255 255 255 / 0.06);
+}
+.decision-num {
+  flex-shrink: 0;
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.6rem;
+  color: var(--color-mint);
+}
+
+/* Hero stat that links somewhere (certifications) */
+.stat-link {
+  border-radius: 0.75rem;
+  outline-offset: 4px;
+}
+.stat-link > span:last-child {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--muted) 35%, transparent);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+.stat-link:hover > span:last-child {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}

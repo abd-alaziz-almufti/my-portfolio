@@ -43,10 +43,11 @@ export default function Navbar({ name, nav }: { name: string; nav: Nav }) {
           <a
             href="/Abdalaziz_Almufti_CV.pdf"
             download
-            className="ms-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-accent"
+            aria-label={nav.cv}
+            data-short={nav.cvShort}
+            className="short-label-sm ms-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-accent"
           >
-            <span className="sm:hidden">{nav.cvShort}</span>
-            <span className="hidden sm:inline">{nav.cv}</span>
+            <span className="short-label-full">{nav.cv}</span>
           </a>
           <Link
             href={nav.switchTo.href}
@@ -54,10 +55,10 @@ export default function Navbar({ name, nav }: { name: string; nav: Nav }) {
             hrefLang={nav.switchTo.lang}
             title={nav.switchTo.title}
             aria-label={nav.switchTo.title}
-            className="lang-switch ms-1 grid h-10 min-w-10 place-items-center rounded-full border border-line bg-surface px-3 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
+            data-short={nav.switchTo.short}
+            className="short-label-md lang-switch ms-1 grid h-10 min-w-10 place-items-center rounded-full border border-line bg-surface px-3 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
           >
-            <span className="md:hidden">{nav.switchTo.short}</span>
-            <span className="hidden md:inline">{nav.switchTo.label}</span>
+            <span className="short-label-full">{nav.switchTo.label}</span>
           </Link>
           <ThemeToggle label={nav.theme} className="ms-1 hidden md:grid" />
           <button
@@ -80,10 +81,9 @@ export default function Navbar({ name, nav }: { name: string; nav: Nav }) {
               <a
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="flex items-baseline justify-between border-t border-line py-4 font-display text-2xl font-bold tracking-tight text-ink"
+                className="menu-link flex items-baseline justify-between border-t border-line py-4 font-display text-2xl font-bold tracking-tight text-ink"
               >
                 {item.name}
-                <span className="text-sm font-medium tabular-nums text-muted">0{i + 1}</span>
               </a>
             </li>
           ))}
