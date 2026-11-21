@@ -2,6 +2,7 @@ import Image from "next/image";
 import Navbar from "./Navbar";
 import BrowserFrame from "./BrowserFrame";
 import ProductShowcase from "./ProductShowcase";
+import Architecture from "./Architecture";
 import SmoothScroll from "./SmoothScroll";
 import WorkRibbon from "./WorkRibbon";
 import { BlurText, LightRays, StarBorder, CountUp } from "./react-bits";
@@ -221,6 +222,10 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                   <p className="text-sm font-semibold text-sun">{hl.eyebrow}</p>
                   <h3 className="mt-2 font-display text-3xl font-bold tracking-tight md:text-4xl">HealthyLife AI</h3>
                   <p className="mt-4 text-lg leading-relaxed text-white/80">{hl.text}</p>
+                  <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                    <p className="text-sm font-semibold text-sun">{hl.problemLabel}</p>
+                    <p className="mt-2 leading-relaxed text-white/85">{hl.problem}</p>
+                  </div>
                   <ul data-stagger className="mt-6 space-y-3">
                     {hl.built.map((item) => (
                       <li key={item} className="flex gap-3 leading-relaxed text-white/85">
@@ -274,6 +279,12 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                 </dl>
               </div>
               <div className="mt-12 border-t border-white/10 pt-10">
+                <h4 className="font-display text-xl font-bold">{hl.architecture.title}</h4>
+                <div className="mt-6">
+                  <Architecture text={hl.architecture} />
+                </div>
+              </div>
+              <div className="mt-12 border-t border-white/10 pt-10">
                 <h4 className="font-display text-xl font-bold">{hl.inside}</h4>
                 <div className="mt-5">
                   <ProductShowcase text={hl.showcase} />
@@ -310,7 +321,16 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                       {project.title}
                     </h3>
                     <p className="mt-4 leading-relaxed text-ink/85">{project.summary}</p>
-                    <p className="mt-2 leading-relaxed text-muted">{project.detail}</p>
+                    <dl className="mt-5 space-y-3 border-s-2 border-accent/30 ps-4">
+                      {(["problem", "built", "outcome"] as const).map((key) => (
+                        <div key={key}>
+                          <dt className="text-xs font-semibold uppercase tracking-wider text-accent">
+                            {t.work.caseLabels[key]}
+                          </dt>
+                          <dd className="mt-1 leading-relaxed text-muted">{project[key]}</dd>
+                        </div>
+                      ))}
+                    </dl>
                     <ul className="mt-5 flex flex-wrap gap-2" aria-label={t.work.techLabel}>
                       {project.tech.map((tech) => (
                         <li key={tech} className="rounded-md bg-accent-soft px-2.5 py-1 text-sm font-medium text-accent">
@@ -343,6 +363,69 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                   <p className="mt-1 text-muted">{item.text}</p>
                 </a>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Services, for freelance clients */}
+        <section aria-labelledby="services" className="border-b border-line">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+            <SectionHeading id="services" title={t.services.title} note={t.services.note} />
+            <div data-stagger className="grid gap-4 md:grid-cols-3">
+              {t.services.items.map((item, i) => (
+                <a
+                  key={item.title}
+                  href={item.href}
+                  className="service-card lift group flex flex-col rounded-3xl border border-line bg-surface p-7"
+                >
+                  <span className="font-mono text-sm text-accent" dir="ltr">
+                    0{i + 1}
+                  </span>
+                  <h3 className="mt-3 font-display text-xl font-bold text-ink">{item.title}</h3>
+                  <p className="mt-2 flex-1 leading-relaxed text-muted">{item.text}</p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent">
+                    {item.proof}
+                    <span
+                      aria-hidden="true"
+                      className="transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1"
+                    >
+                      →
+                    </span>
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            <div data-reveal className="panel-dark mt-12 rounded-3xl p-7 text-white md:p-10">
+              <h3 className="font-display text-2xl font-bold">{t.services.processTitle}</h3>
+              <ol data-stagger className="mt-8 grid gap-8 md:grid-cols-4 md:gap-6">
+                {t.services.process.map((step, i) => (
+                  <li key={step.title} className="process-step">
+                    <span className="font-mono text-sm text-mint" dir="ltr">
+                      0{i + 1}
+                    </span>
+                    <h4 className="mt-2 font-display text-lg font-bold">{step.title}</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-white/75">{step.text}</p>
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-10 flex flex-wrap gap-3">
+                <a
+                  href={links.brightGaza}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-white px-5 py-2.5 font-semibold text-night transition-colors hover:bg-mint"
+                >
+                  {t.services.cta}
+                </a>
+                <a
+                  href={`mailto:${EMAIL}`}
+                  dir="ltr"
+                  className="rounded-full border border-white/25 px-5 py-2.5 font-semibold transition-colors hover:border-white"
+                >
+                  {EMAIL}
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -406,20 +489,44 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
         <section aria-labelledby="skills" className="border-t border-line">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
             <SectionHeading id="skills" title={t.skills.title} />
-            <div data-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {t.skills.groups.map((s, i) => (
-                <div key={s.group} className="skill-card rounded-2xl border border-line bg-surface p-6">
-                  <p className="text-sm font-medium tabular-nums text-accent">0{i + 1}</p>
-                  <h3 className="mt-1 font-display text-xl font-bold text-ink">{s.group}</h3>
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {s.items.map((item) => (
-                      <li key={item} className="rounded-md bg-accent-soft px-2.5 py-1 text-sm font-medium text-accent">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            <div data-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {t.skills.groups.map((s, i) => {
+                const core = i === 0;
+                return (
+                  <div
+                    key={s.group}
+                    className={`skill-card rounded-2xl border bg-surface ${
+                      core ? "skill-core border-accent/40 p-7 sm:col-span-2 md:p-8 lg:col-span-3" : "border-line p-6"
+                    }`}
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-medium tabular-nums text-accent">0{i + 1}</p>
+                        <h3 className={`mt-1 font-display font-bold text-ink ${core ? "text-2xl md:text-3xl" : "text-xl"}`}>
+                          {s.group}
+                        </h3>
+                      </div>
+                      {core && (
+                        <span className="rounded-full bg-accent-soft px-3 py-1 text-sm font-semibold text-accent">
+                          {t.skills.coreNote}
+                        </span>
+                      )}
+                    </div>
+                    <ul className="mt-4 flex flex-wrap gap-2">
+                      {s.items.map((item) => (
+                        <li
+                          key={item}
+                          className={`rounded-md bg-accent-soft font-medium text-accent ${
+                            core ? "px-3 py-1.5 text-base" : "px-2.5 py-1 text-sm"
+                          }`}
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
             </div>
 
             <div data-reveal className="mt-16 rounded-3xl border border-line bg-surface p-7 md:p-10">
@@ -463,6 +570,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                 { label: "LinkedIn", url: links.linkedin },
                 { label: "GitHub", url: links.github },
                 { label: "WhatsApp", url: links.whatsapp },
+                { label: "BrightGaza", url: links.brightGaza },
               ].map((l) => (
                 <a
                   key={l.label}

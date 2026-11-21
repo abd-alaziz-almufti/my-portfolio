@@ -11,6 +11,7 @@ export const links = {
   healthyLife: "https://frontend-nextjs-phi-ten.vercel.app/ar",
   healthyLifeBackend: "https://github.com/HealthyLife-AI/Backend-Laravel",
   healthyLifeFrontend: "https://github.com/HealthyLife-AI/Frontend-Nextjs",
+  brightGaza: "https://brightgaza.com/en/services/938",
 };
 
 export const heroStack = [
@@ -47,6 +48,7 @@ const en = {
   nav: {
     items: [
       { name: "Work", href: "#work" },
+      { name: "Services", href: "#services" },
       { name: "Experience", href: "#experience" },
       { name: "Skills", href: "#skills" },
       { name: "Contact", href: "#contact" },
@@ -100,10 +102,13 @@ const en = {
     note: "What I've built, starting with the product I run.",
     techLabel: "Technologies",
     shotAlt: (title: string) => `Screenshot of ${title}`,
+    caseLabels: { problem: "Problem", built: "What I built", outcome: "Result" },
   },
   healthyLife: {
     eyebrow: "Current project",
     text: "An Arabic-first SaaS platform for clinical nutrition specialists. They manage patients, design meal plans from a library of local dishes, and get alerted between visits when a patient starts to slip.",
+    problemLabel: "The problem",
+    problem: "Four practicing nutritionists I interviewed named the same two time sinks: designing plans by hand and following up every patient daily. HealthyLife AI was built around both, and piloted with specialists in Gaza and Yemen.",
     built: [
       "Designed the multi-tenant architecture and MySQL schema, with a global scope that keeps every clinic's patient data isolated, and role-based permissions.",
       "Built the Laravel REST API that serves both the Next.js dashboard for specialists and the Flutter app for patients.",
@@ -117,8 +122,31 @@ const en = {
       { label: "Role", value: "Founder & Tech Lead" },
       { label: "Since", value: "July", year: 2026 },
       { label: "Status", value: "Live in production" },
+      { label: "Validated with", value: "4 nutritionist interviews" },
       { label: "Stack", value: "Laravel, Next.js, MySQL, Flutter" },
     ] as { label: string; value: string; year?: number }[],
+    architecture: {
+      title: "How it's built",
+      caption: "One Laravel API serves both apps, and each specialist's data stays inside their own practice.",
+      clientsLabel: "Apps",
+      clients: [
+        { name: "Specialist dashboard", tech: "Next.js" },
+        { name: "Patient app", tech: "Flutter" },
+      ],
+      apiLabel: "Backend",
+      api: {
+        name: "REST API",
+        tech: "Laravel",
+        points: ["Role-based permissions (Spatie)", "Global scope isolates each practice", "200+ automated tests"],
+      },
+      servicesLabel: "Data & services",
+      services: [
+        { name: "Relational database", tech: "MySQL" },
+        { name: "Background jobs", tech: "Laravel queues" },
+        { name: "AI layer", tech: "Claude · OpenAI" },
+      ],
+      deploy: "Merge to main → production",
+    },
     inside: "A look inside the product",
     showcase: {
       label: "HealthyLife AI screens",
@@ -152,8 +180,10 @@ const en = {
     {
       id: "project-real-estate",
       title: "Real estate management, multi-tenant SaaS",
-      summary: "Property, unit, lease, payment, expense and maintenance workflows for real estate companies. Built with a partner as a Laravel + Filament backend and a Next.js frontend.",
-      detail: "Tenant isolation through a custom CompanyScope on every query, role-based access for five roles with Spatie Permission and Filament Shield, queued jobs and PHPUnit tests.",
+      summary: "A multi-tenant SaaS for real estate companies, built with a partner.",
+      problem: "Each company needs one place for properties, units, leases, payments, expenses and maintenance, and on a shared platform no company may ever see another's data.",
+      built: "A Laravel + Filament backend with REST APIs for a Next.js frontend. A custom CompanyScope filters every query by company, Spatie Permission and Filament Shield cover five roles, and queued jobs, events and scheduled notifications run in the background.",
+      outcome: "A live demo, with PHPUnit tests covering the business logic and tenant isolation.",
       image: "/images/Project1.png",
       frame: "Real estate SaaS · public site",
       tech: ["Laravel", "Filament", "Next.js", "MySQL"],
@@ -166,8 +196,10 @@ const en = {
     {
       id: "project-expense-manager",
       title: "Smart expense manager with AI analysis",
-      summary: "A personal-finance app for expenses, budgets, income and alerts that asks the OpenAI API for a spending analysis and a budget plan for each user.",
-      detail: "AI answers are held to a JSON contract, validated and parsed defensively, with rate limits and API failures handled and covered by tests using OpenAI fakes.",
+      summary: "A personal-finance app with an AI advisor built on the OpenAI API.",
+      problem: "AI advice is easy to demo and hard to trust: answers can come back malformed, and the API can fail or hit its rate limits.",
+      built: "An AiExpenseAdvisor service sends each user's aggregated data to OpenAI under a strict JSON contract, then sanitises, validates and parses the answer defensively. All financial data is scoped to the signed-in user.",
+      outcome: "A live demo, with tests that use OpenAI fakes for both normal answers and failure paths.",
       image: "/images/project2.png",
       frame: "Expense manager · dashboard",
       tech: ["Laravel", "Livewire", "Filament", "OpenAI API"],
@@ -179,8 +211,10 @@ const en = {
     {
       id: "project-university",
       title: "Unified University Platform",
-      summary: "My graduation project at the Islamic University of Gaza, defended with distinction: one place for university services, with a ticketing system, announcements and an admin portal.",
-      detail: "Ticket routing with chat-style replies, notifications, admission calculations, instant search and an approval flow for profile changes, with eager loading and caching.",
+      summary: "My graduation project at the Islamic University of Gaza, defended with distinction.",
+      problem: "Student services and enquiries at the university needed one place, with every request routed to the right staff.",
+      built: "A relational database, a Filament admin portal for users, roles, colleges, courses and tickets, and a Blade + Livewire 3 student interface. Tickets are routed with chat-style replies and notifications, and profile changes go through a maker–checker approval flow.",
+      outcome: "A live demo on Render, with eager loading and caching for speed, and feature tests for authentication and access control.",
       image: "/images/project3.png",
       frame: "Unified University Platform · home",
       tech: ["Laravel", "Livewire", "Filament", "PostgreSQL"],
@@ -202,6 +236,38 @@ const en = {
       url: projectLinks.microservices,
     },
   ],
+  services: {
+    title: "How I can help",
+    note: "For startups and teams that need a backend they can rely on.",
+    items: [
+      {
+        title: "APIs and backends for your app",
+        text: "A secure, documented Laravel REST API for your mobile or web app: database design, authentication, roles and tests.",
+        proof: "As in HealthyLife AI",
+        href: "#project-healthylife",
+      },
+      {
+        title: "Admin dashboards",
+        text: "A dashboard to run your product: users, data and permissions, built in Next.js or Filament.",
+        proof: "As in the real estate SaaS",
+        href: "#project-real-estate",
+      },
+      {
+        title: "AI features in Laravel apps",
+        text: "Claude or OpenAI features with strict JSON contracts and graceful failure handling, so the AI part never breaks your app.",
+        proof: "As in the expense manager",
+        href: "#project-expense-manager",
+      },
+    ],
+    processTitle: "How we work",
+    process: [
+      { title: "Scope in writing", text: "We agree the data model and the endpoint list before I write code, so there are no surprises later." },
+      { title: "Build in the open", text: "You see working code in a repository as it is built, not only at the end." },
+      { title: "Tested and documented", text: "Automated tests cover the main business logic, and API docs let your frontend team start on day one." },
+      { title: "Shipped to production", text: "I deploy it, then hand over the code and the docs so your team owns everything." },
+    ],
+    cta: "Hire me on BrightGaza",
+  },
   experience: {
     title: "Experience and education",
     blurb: "A little over two years from trainee to running a product in production, with a software degree finished along the way.",
@@ -219,7 +285,13 @@ const en = {
         text: "Founded the product and lead its team. Own the architecture, database, backend, web dashboard and production.",
       },
       {
-        period: "Jul 2026 – now",
+        period: "Nov 2026 – now",
+        role: "Programming track, CodeMap Accelerator 2026",
+        org: "Taqat",
+        text: "Selected through a competitive interview to keep scaling HealthyLife AI inside Taqat's accelerator.",
+      },
+      {
+        period: "Jul 2026 – Oct 2026",
         role: "Trainee, Code Map 3 program",
         org: "Taqat",
         text: "Started HealthyLife AI in the program and took it from interviews with nutritionists and an MVP spec to a production release.",
@@ -240,8 +312,9 @@ const en = {
   },
   skills: {
     title: "Skills",
+    coreNote: "What I work with every day",
     groups: [
-      { group: "Backend", items: ["Laravel", "PHP", "Livewire", "Filament", "REST APIs", "Java & Spring Boot"] },
+      { group: "Backend", items: ["Laravel", "PHP", "REST APIs", "Multi-tenant architecture", "Queues & events", "Spatie Permission", "Livewire", "Filament", "Java & Spring Boot"] },
       { group: "Frontend", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Blade"] },
       { group: "AI", items: ["Claude API", "OpenAI API", "Structured output", "Prompt engineering"] },
       { group: "Data & tools", items: ["MySQL", "PostgreSQL", "RabbitMQ", "Docker", "PHPUnit", "Git"] },
@@ -252,7 +325,7 @@ const en = {
   },
   contact: {
     title: "Need a backend developer for your product?",
-    text: "I'm open to full-time and remote roles, and to freelance projects. The quickest way to reach me is email.",
+    text: "I'm open to full-time remote roles and to freelance projects. Email is the quickest way to reach me, or hire me through BrightGaza.",
   },
   footer: "© 2026 Abdalaziz Almufti. Gaza, Palestine.",
 };
@@ -264,6 +337,7 @@ const ar: Content = {
   nav: {
     items: [
       { name: "الأعمال", href: "#work" },
+      { name: "الخدمات", href: "#services" },
       { name: "الخبرات", href: "#experience" },
       { name: "المهارات", href: "#skills" },
       { name: "تواصل", href: "#contact" },
@@ -317,10 +391,13 @@ const ar: Content = {
     note: "ما بنيته، بدءًا بالمنتج الذي أديره.",
     techLabel: "التقنيات",
     shotAlt: (title: string) => `لقطة شاشة من ${title}`,
+    caseLabels: { problem: "المشكلة", built: "ما بنيته", outcome: "النتيجة" },
   },
   healthyLife: {
     eyebrow: "المشروع الحالي",
     text: "منصة SaaS عربية لأخصائيي التغذية العلاجية. يديرون مرضاهم، ويصمّمون الخطط الغذائية من مكتبة أطباق محلية، وتصلهم تنبيهات بين الزيارات عندما يبدأ التزام المريض بالتراجع.",
+    problemLabel: "المشكلة",
+    problem: "قابلت أربعة أخصائيي تغذية يمارسون المهنة، فذكروا جميعًا نفس مصدرَي إهدار الوقت: تصميم الخطط يدويًا، ومتابعة كل مريض يوميًا. بُنيت HealthyLife AI حول الأمرين، وجُرّبت مع أخصائيين في غزة واليمن.",
     built: [
       "صمّمت معمارية multi-tenant ومخطط MySQL، مع global scope يعزل بيانات مرضى كل عيادة، وصلاحيات مبنية على الأدوار.",
       "بنيت REST API بـ Laravel يخدم لوحة Next.js للأخصائيين وتطبيق Flutter للمرضى.",
@@ -334,8 +411,31 @@ const ar: Content = {
       { label: "الدور", value: "المؤسس والقائد التقني" },
       { label: "منذ", value: "يوليو", year: 2026 },
       { label: "الحالة", value: "تعمل في بيئة الإنتاج" },
+      { label: "التحقق من الفكرة", value: "مقابلات مع 4 أخصائيي تغذية" },
       { label: "التقنيات", value: "Laravel, Next.js, MySQL, Flutter" },
     ],
+    architecture: {
+      title: "كيف بُنيت",
+      caption: "API واحد بـ Laravel يخدم التطبيقين، وتبقى بيانات كل أخصائي داخل عيادته فقط.",
+      clientsLabel: "التطبيقات",
+      clients: [
+        { name: "لوحة الأخصائي", tech: "Next.js" },
+        { name: "تطبيق المريض", tech: "Flutter" },
+      ],
+      apiLabel: "الواجهة الخلفية",
+      api: {
+        name: "REST API",
+        tech: "Laravel",
+        points: ["صلاحيات حسب الأدوار (Spatie)", "Global scope يعزل بيانات كل عيادة", "أكثر من 200 اختبار آلي"],
+      },
+      servicesLabel: "البيانات والخدمات",
+      services: [
+        { name: "قاعدة بيانات علائقية", tech: "MySQL" },
+        { name: "مهام في الخلفية", tech: "Laravel queues" },
+        { name: "طبقة الذكاء الاصطناعي", tech: "Claude · OpenAI" },
+      ],
+      deploy: "الدمج في main ← بيئة الإنتاج",
+    },
     inside: "نظرة داخل المنتج",
     showcase: {
       label: "شاشات HealthyLife AI",
@@ -369,8 +469,10 @@ const ar: Content = {
     {
       id: "project-real-estate",
       title: "إدارة العقارات، نظام SaaS متعدد المستأجرين",
-      summary: "سير عمل كامل للعقارات والوحدات والعقود والدفعات والمصاريف والصيانة لشركات العقارات. بنيته مع شريك: Backend بـ Laravel و Filament وواجهة بـ Next.js.",
-      detail: "عزل بيانات كل شركة عبر CompanyScope مخصص على كل استعلام، وصلاحيات لخمسة أدوار بـ Spatie Permission و Filament Shield، مع queued jobs واختبارات PHPUnit.",
+      summary: "نظام SaaS متعدد المستأجرين لشركات العقارات، بنيته مع شريك.",
+      problem: "تحتاج كل شركة مكانًا واحدًا للعقارات والوحدات والعقود والدفعات والمصاريف والصيانة، وعلى منصة مشتركة يجب ألا ترى أي شركة بيانات غيرها أبدًا.",
+      built: "Backend بـ Laravel و Filament مع REST APIs لواجهة Next.js. يفلتر CompanyScope مخصص كل استعلام حسب الشركة، وتغطي Spatie Permission و Filament Shield خمسة أدوار، وتعمل queued jobs والأحداث والإشعارات المجدولة في الخلفية.",
+      outcome: "عرض حي، واختبارات PHPUnit تغطي منطق العمل وعزل بيانات الشركات.",
       image: "/images/Project1.png",
       frame: "نظام العقارات · الموقع العام",
       tech: ["Laravel", "Filament", "Next.js", "MySQL"],
@@ -383,8 +485,10 @@ const ar: Content = {
     {
       id: "project-expense-manager",
       title: "مدير مصاريف ذكي بتحليل الذكاء الاصطناعي",
-      summary: "تطبيق للمالية الشخصية يدير المصاريف والميزانيات والدخل والتنبيهات، ويطلب من OpenAI API تحليلًا للإنفاق وخطة ميزانية لكل مستخدم.",
-      detail: "ردود الذكاء الاصطناعي ملزمة بعقد JSON وتُفحص وتُحلَّل بحذر، مع معالجة حدود الطلبات وأعطال الـ API وتغطيتها باختبارات تستخدم OpenAI fakes.",
+      summary: "تطبيق للمالية الشخصية فيه مستشار ذكي مبني على OpenAI API.",
+      problem: "نصائح الذكاء الاصطناعي سهلة العرض وصعبة الثقة: قد تصل الإجابة بصيغة خاطئة، وقد يفشل الـ API أو يصل إلى حد الطلبات.",
+      built: "خدمة AiExpenseAdvisor ترسل بيانات كل مستخدم المجمّعة إلى OpenAI بعقد JSON صارم، ثم تنظّف الإجابة وتتحقق منها وتحلّلها بحذر. وكل البيانات المالية محصورة بالمستخدم المسجّل.",
+      outcome: "عرض حي، واختبارات تستخدم OpenAI fakes للإجابات العادية ولحالات الفشل.",
       image: "/images/project2.png",
       frame: "مدير المصاريف · لوحة التحكم",
       tech: ["Laravel", "Livewire", "Filament", "OpenAI API"],
@@ -396,8 +500,10 @@ const ar: Content = {
     {
       id: "project-university",
       title: "المنصة الجامعية الموحدة",
-      summary: "مشروع تخرجي في الجامعة الإسلامية بغزة، ناقشته بامتياز: مكان واحد لخدمات الجامعة، فيه نظام تذاكر وإعلانات وبوابة إدارة.",
-      detail: "توجيه التذاكر مع ردود بأسلوب المحادثة، وإشعارات، وحساب معدلات القبول، وبحث فوري، ومسار موافقة على تعديل الملف الشخصي، مع eager loading و caching.",
+      summary: "مشروع تخرجي في الجامعة الإسلامية بغزة، ناقشته بامتياز.",
+      problem: "احتاجت خدمات الطلبة واستفساراتهم في الجامعة مكانًا واحدًا، مع توجيه كل طلب إلى الموظف المناسب.",
+      built: "قاعدة بيانات علائقية، وبوابة إدارة بـ Filament للمستخدمين والأدوار والكليات والمساقات والتذاكر، وواجهة طلاب بـ Blade و Livewire 3. تُوجَّه التذاكر مع ردود بأسلوب المحادثة وإشعارات، وتمر تعديلات الملف الشخصي بمسار موافقة maker–checker.",
+      outcome: "عرض حي على Render، مع eager loading و caching للسرعة، واختبارات feature للمصادقة والتحكم بالوصول.",
       image: "/images/project3.png",
       frame: "المنصة الجامعية الموحدة · الرئيسية",
       tech: ["Laravel", "Livewire", "Filament", "PostgreSQL"],
@@ -419,6 +525,38 @@ const ar: Content = {
       url: projectLinks.microservices,
     },
   ],
+  services: {
+    title: "كيف أساعدك",
+    note: "للشركات الناشئة والفرق التي تحتاج Backend يمكن الاعتماد عليه.",
+    items: [
+      {
+        title: "API و Backend لتطبيقك",
+        text: "REST API آمن وموثّق بـ Laravel لتطبيقك على الموبايل أو الويب: تصميم قاعدة البيانات والمصادقة والصلاحيات والاختبارات.",
+        proof: "كما في HealthyLife AI",
+        href: "#project-healthylife",
+      },
+      {
+        title: "لوحات تحكم",
+        text: "لوحة تدير منها منتجك: المستخدمون والبيانات والصلاحيات، مبنية بـ Next.js أو Filament.",
+        proof: "كما في نظام العقارات",
+        href: "#project-real-estate",
+      },
+      {
+        title: "ميزات ذكاء اصطناعي في تطبيقات Laravel",
+        text: "ميزات بـ Claude أو OpenAI بعقود JSON صارمة ومعالجة هادئة للأعطال، حتى لا يكسر الذكاء الاصطناعي تطبيقك أبدًا.",
+        proof: "كما في مدير المصاريف",
+        href: "#project-expense-manager",
+      },
+    ],
+    processTitle: "طريقة العمل",
+    process: [
+      { title: "نتفق على النطاق كتابيًا", text: "نتفق على نموذج البيانات وقائمة الـ endpoints قبل كتابة الكود، فلا مفاجآت لاحقًا." },
+      { title: "بناء أمام عينك", text: "ترى الكود يعمل في مستودع أثناء بنائه، لا في النهاية فقط." },
+      { title: "مختبر وموثّق", text: "اختبارات آلية تغطي منطق العمل الأساسي، وتوثيق API يبدأ به فريق الواجهة من اليوم الأول." },
+      { title: "إطلاق وتسليم", text: "أرفع المشروع إلى بيئة الإنتاج، ثم أسلّمك الكود والتوثيق ليبقى كل شيء ملك فريقك." },
+    ],
+    cta: "اطلب الخدمة عبر BrightGaza",
+  },
   experience: {
     title: "الخبرات والتعليم",
     blurb: "أكثر من سنتين بقليل، من متدرّب إلى إدارة منتج يعمل في بيئة الإنتاج، مع إنهاء شهادة البرمجيات في الطريق.",
@@ -436,7 +574,13 @@ const ar: Content = {
         text: "أسّست المنتج وأقود فريقه. مسؤول عن المعمارية وقاعدة البيانات والـ Backend ولوحة الويب وبيئة الإنتاج.",
       },
       {
-        period: "يوليو 2026 – الآن",
+        period: "نوفمبر 2026 – الآن",
+        role: "المسار البرمجي، مسرّعة CodeMap 2026",
+        org: "طاقات",
+        text: "اختِرت بعد مقابلة تنافسية لمواصلة تطوير HealthyLife AI داخل مسرّعة طاقات.",
+      },
+      {
+        period: "يوليو 2026 – أكتوبر 2026",
         role: "متدرّب، برنامج Code Map 3",
         org: "طاقات",
         text: "بدأت HealthyLife AI ضمن البرنامج ونقلتها من مقابلات مع أخصائيي التغذية ومواصفات MVP إلى إصدار يعمل في بيئة الإنتاج.",
@@ -457,8 +601,9 @@ const ar: Content = {
   },
   skills: {
     title: "المهارات",
+    coreNote: "ما أعمل به كل يوم",
     groups: [
-      { group: "الواجهة الخلفية", items: ["Laravel", "PHP", "Livewire", "Filament", "REST APIs", "Java & Spring Boot"] },
+      { group: "الواجهة الخلفية", items: ["Laravel", "PHP", "REST APIs", "معمارية multi-tenant", "Queues و Events", "Spatie Permission", "Livewire", "Filament", "Java & Spring Boot"] },
       { group: "الواجهة الأمامية", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Blade"] },
       { group: "الذكاء الاصطناعي", items: ["Claude API", "OpenAI API", "Structured output", "Prompt engineering"] },
       { group: "البيانات والأدوات", items: ["MySQL", "PostgreSQL", "RabbitMQ", "Docker", "PHPUnit", "Git"] },
@@ -469,7 +614,7 @@ const ar: Content = {
   },
   contact: {
     title: "تحتاج مطوّر Backend لمنتجك؟",
-    text: "متاح للوظائف بدوام كامل وعن بُعد، وللمشاريع المستقلة. أسرع طريقة للتواصل معي هي البريد الإلكتروني.",
+    text: "متاح لوظائف بدوام كامل عن بُعد وللمشاريع المستقلة. البريد الإلكتروني أسرع طريقة للتواصل معي، أو اطلب خدماتي عبر BrightGaza.",
   },
   footer: "© 2026 عبدالعزيز المفتي. غزة، فلسطين.",
 };
