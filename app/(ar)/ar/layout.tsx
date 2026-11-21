@@ -11,13 +11,13 @@ const plexArabic = IBM_Plex_Sans_Arabic({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://my-portfolio-zeta-three-9gki3si54m.vercel.app"),
-  title: "عبدالعزيز المفتي | مطوّر Full Stack (Laravel, Next.js)",
+  title: "عبدالعزيز المفتي | مطوّر Backend بـ Laravel وخبرة في Next.js",
   description:
-    "مطوّر Full Stack من غزة، فلسطين. مؤسس والقائد التقني لـ HealthyLife AI، منصة SaaS عربية لأخصائيي التغذية. Laravel و Next.js ومعمارية multi-tenant وتكامل الذكاء الاصطناعي.",
+    "مطوّر Backend بـ Laravel من غزة، فلسطين، ولديه خبرة في الواجهات الأمامية بـ Next.js. مؤسس والقائد التقني لـ HealthyLife AI، منصة SaaS عربية لأخصائيي التغذية. Laravel و Next.js ومعمارية multi-tenant وتكامل الذكاء الاصطناعي.",
   alternates: { canonical: "/ar", languages: { en: "/", ar: "/ar" } },
   twitter: { card: "summary_large_image", images: ["/og-ar.png"] },
   openGraph: {
-    title: "عبدالعزيز المفتي | مطوّر Full Stack",
+    title: "عبدالعزيز المفتي | مطوّر Backend بـ Laravel",
     description: "مؤسس والقائد التقني لـ HealthyLife AI. Laravel و Next.js وأنظمة SaaS وتكامل الذكاء الاصطناعي.",
     images: [{ url: "/og-ar.png", width: 1200, height: 630 }],
     type: "website",

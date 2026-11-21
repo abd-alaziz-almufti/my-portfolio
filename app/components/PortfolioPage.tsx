@@ -40,9 +40,9 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
     "@type": "Person",
     name: t.name,
     alternateName: lang === "ar" ? content.en.name : content.ar.name,
-    jobTitle: "Full Stack Developer",
+    jobTitle: "Backend Developer",
     url: lang === "ar" ? `${SITE_URL}/ar` : SITE_URL,
-    image: `${SITE_URL}/images/MY%20Profile.jpeg`,
+    image: `${SITE_URL}/images/abdalaziz-portrait.webp`,
     email: `mailto:${EMAIL}`,
     address: { "@type": "PostalAddress", addressLocality: "Gaza", addressCountry: "PS" },
     alumniOf: { "@type": "CollegeOrUniversity", name: "Islamic University of Gaza" },
@@ -63,6 +63,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
         {/* Hero */}
         <section className="relative isolate overflow-hidden">
           <div className="hero-glow pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
+          <div className="hero-grid pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
           <div className="hero-rays pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
             <LightRays
               raysOrigin="top-right"
@@ -91,6 +92,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                 <BlurText
                   as="h1"
                   text={t.hero.title}
+                  highlight={t.hero.titleAccent}
                   animateBy="words"
                   direction="bottom"
                   delay={70}
@@ -137,17 +139,27 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                     {EMAIL}
                   </a>
                 </div>
+                <ul style={{ animationDelay: "360ms" }} className="reveal mt-12 grid max-w-xl grid-cols-3 gap-4 border-t border-line pt-8">
+                  {t.hero.stats.map((s) => (
+                    <li key={s.label}>
+                      <p className="stat-value font-display text-3xl font-extrabold tracking-tight md:text-4xl" dir="ltr">
+                        {s.value}
+                      </p>
+                      <p className="mt-1 text-sm text-muted">{s.label}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
               <div style={{ animationDelay: "200ms" }} className="reveal-photo relative mx-auto w-60 md:w-[21rem]">
                 <div data-parallax="-36" className="relative aspect-[4/5]">
-                  <div className="photo-backing absolute inset-0 translate-x-3 translate-y-3 rounded-[2rem]" aria-hidden="true" />
-                  <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-line bg-surface">
+                  <div className="photo-ring absolute -inset-[3px] rounded-[2.2rem]" aria-hidden="true" />
+                  <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-night">
                     <Image
-                      src="/images/MY Profile.jpeg"
+                      src="/images/abdalaziz-portrait.webp"
                       alt={t.hero.photoAlt}
                       fill
                       sizes="(min-width: 768px) 336px, 240px"
-                      className="object-cover object-[50%_22%]"
+                      className="object-cover object-[50%_30%]"
                       priority
                     />
                   </div>
@@ -165,7 +177,17 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                     <span className="block font-semibold text-ink">{t.hero.liveChip}</span>
                   </span>
                 </a>
-                <div data-parallax="-12" className="hero-chip float-b absolute -end-3 top-8 md:-end-10" aria-hidden="true">
+                <div data-parallax="-12" className="api-chip float-b absolute -end-3 top-8 md:-end-16" dir="ltr" aria-hidden="true">
+                  <span>
+                    <span className="block font-mono text-[11px] text-white/55">{t.hero.apiChip.request}</span>
+                    <span className="mt-1 flex items-center gap-2 font-mono text-sm font-semibold">
+                      <span className="text-mint">{t.hero.apiChip.status}</span>
+                      <span className="text-white/40">·</span>
+                      <span className="text-white/80">{t.hero.apiChip.time}</span>
+                    </span>
+                  </span>
+                </div>
+                <div data-parallax="-24" className="hero-chip float-a absolute -end-6 bottom-[-1.25rem] md:-end-12" aria-hidden="true">
                   <span>
                     <span className="block text-xs text-muted">{t.hero.roleLabel}</span>
                     <span className="block font-semibold text-ink">{t.hero.role}</span>

@@ -178,6 +178,8 @@ const BlurText = ({
   color,
   fromColor,
   focusOnHover = false,
+  highlight,
+  highlightClassName = 'text-gradient',
   as: Tag = 'p'
 }) => {
   const ref = useRef(null);
@@ -367,7 +369,7 @@ const BlurText = ({
         {groups.map((indices, w) => (
           <span
             key={`word-${w}`}
-            className="inline-flex"
+            className={`inline-flex ${highlight && words[w].replace(/[.,،؟?!]/g, '') === highlight ? highlightClassName : ''}`}
             style={wordStyle(w)}
             onPointerEnter={focusOnHover ? () => setFocusWord(w) : undefined}
             onPointerLeave={focusOnHover ? () => setFocusWord(-1) : undefined}

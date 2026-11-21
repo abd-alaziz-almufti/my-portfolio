@@ -17,13 +17,13 @@ const plex = IBM_Plex_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://my-portfolio-zeta-three-9gki3si54m.vercel.app"),
-  title: "Abdalaziz Almufti | Full Stack Developer (Laravel, Next.js)",
+  title: "Abdalaziz Almufti | Backend Developer (Laravel) with Next.js experience",
   description:
-    "Full Stack Developer in Gaza, Palestine. Founder and tech lead of HealthyLife AI, an Arabic-first SaaS platform for nutrition specialists. Laravel, Next.js, multi-tenant architecture and AI integration.",
+    "Laravel backend developer in Gaza, Palestine, with front-end experience in Next.js. Founder and tech lead of HealthyLife AI, an Arabic-first SaaS platform for nutrition specialists. Laravel, Next.js, multi-tenant architecture and AI integration.",
   alternates: { canonical: "/", languages: { en: "/", ar: "/ar" } },
   twitter: { card: "summary_large_image", images: ["/og-en.png"] },
   openGraph: {
-    title: "Abdalaziz Almufti | Full Stack Developer",
+    title: "Abdalaziz Almufti | Backend Developer (Laravel)",
     description:
       "Founder and tech lead of HealthyLife AI. Laravel, Next.js, multi-tenant SaaS and AI integration.",
     images: [{ url: "/og-en.png", width: 1200, height: 630 }],
