@@ -4,20 +4,42 @@ import BrowserFrame from "./BrowserFrame";
 import ProductShowcase from "./ProductShowcase";
 import Architecture from "./Architecture";
 import SmoothScroll from "./SmoothScroll";
+import Interactions from "./Interactions";
+import ApiChip from "./ApiChip";
 import WorkRibbon from "./WorkRibbon";
 import { BlurText, LightRays, StarBorder, CountUp } from "./react-bits";
 import { content, links, heroStack, EMAIL, CV_URL, SITE_URL, type Lang } from "../content";
 
-function SectionHeading({ id, title, note }: { id: string; title: string; note?: string }) {
+function Kicker({ index, label }: { index: string; label: string }) {
   return (
-    <div data-reveal className="mb-10 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-      <h2 id={id} className="font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
-        {title}
-      </h2>
+    <p className="section-kicker" dir="ltr" aria-hidden="true">
+      <span className="text-sun">{index}</span> {"//"} {label}
+    </p>
+  );
+}
+
+function SectionHeading({ id, index, title, note }: { id: string; index: string; title: string; note?: string }) {
+  return (
+    <div data-reveal className="mb-12 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div>
+        <Kicker index={index} label={id} />
+        <h2 id={id} className="mt-3 font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
+          {title}
+        </h2>
+      </div>
       {note && <p className="max-w-md text-muted">{note}</p>}
     </div>
   );
 }
+
+const SERVICE_ICONS = [
+  // server
+  <svg key="server" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="7" rx="2" /><rect x="3" y="13" width="18" height="7" rx="2" /><path d="M7 7.5h.01M7 16.5h.01M11 7.5h6M11 16.5h6" /></svg>,
+  // layers
+  <svg key="layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z" /><path d="m3 13 9 5 9-5" /></svg>,
+  // sparkles
+  <svg key="spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M10 3.5 11.6 8a2 2 0 0 0 1.3 1.3l4.6 1.6-4.6 1.6a2 2 0 0 0-1.3 1.3L10 18.5l-1.6-4.6a2 2 0 0 0-1.3-1.3L2.5 11l4.6-1.6A2 2 0 0 0 8.4 8L10 3.5Z" /><path d="M18.5 3v4M16.5 5h4M18 16v3M16.5 17.5h3" /></svg>,
+];
 
 function TextLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -60,6 +82,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(person).replace(/</g, "\\u003c") }}
       />
       <SmoothScroll />
+      <Interactions />
       <Navbar name={t.name} nav={t.nav} />
       <main id="top" className="flex-1">
         {/* Hero */}
@@ -112,6 +135,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                   {t.hero.introAfter}
                 </p>
                 <div style={{ animationDelay: "270ms" }} className="reveal mt-9 flex flex-wrap gap-3">
+                  <span data-magnetic className="magnetic inline-flex">
                   <StarBorder
                     as="a"
                     href={scopeMail}
@@ -126,6 +150,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                   >
                     {t.hero.ctaPrimary}
                   </StarBorder>
+                  </span>
                   <a
                     href="#work"
                     className="rounded-full border border-ink/20 bg-surface px-6 py-3 font-semibold text-ink transition-colors hover:border-ink"
@@ -133,18 +158,18 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                     {t.hero.seeWork}
                   </a>
                 </div>
-                <ul style={{ animationDelay: "360ms" }} className="reveal mt-12 grid max-w-xl grid-cols-3 gap-4 border-t border-line pt-8">
+                <ul style={{ animationDelay: "360ms" }} className="reveal mt-10 grid max-w-xl grid-cols-3 gap-3">
                   {t.hero.stats.map((s) => {
                     const body = (
                       <>
-                        <span className="stat-value block font-display text-3xl font-extrabold tracking-tight md:text-4xl" dir="ltr">
+                        <span className="stat-value block font-display text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl" dir="ltr">
                           {s.value}
                         </span>
                         <span className="mt-1 block text-sm text-muted">{s.label}</span>
                       </>
                     );
                     return (
-                      <li key={s.label}>
+                      <li key={s.label} data-spotlight className="stat-tile spotlight">
                         {s.href ? (
                           <a href={s.href} className="stat-link group block">
                             {body}
@@ -185,14 +210,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                   </span>
                 </a>
                 <div data-parallax="-12" className="api-chip float-b absolute -end-3 top-8 md:-end-16" dir="ltr" aria-hidden="true">
-                  <span>
-                    <span className="block font-mono text-[11px] text-white/55">{t.hero.apiChip.request}</span>
-                    <span className="mt-1 flex items-center gap-2 font-mono text-sm font-semibold">
-                      <span className="text-mint">{t.hero.apiChip.status}</span>
-                      <span className="text-white/40">·</span>
-                      <span className="text-white/80">{t.hero.apiChip.time}</span>
-                    </span>
-                  </span>
+                  <ApiChip request={t.hero.apiChip.request} status={t.hero.apiChip.status} time={t.hero.apiChip.time} />
                 </div>
                 <div data-parallax="-24" className="hero-chip float-a absolute -end-6 bottom-[-1.25rem] md:-end-12" aria-hidden="true">
                   <span>
@@ -220,7 +238,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
         {/* Featured: HealthyLife */}
         <section aria-labelledby="work" className="border-b border-line bg-surface">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
-            <SectionHeading id="work" title={t.work.title} note={t.work.note} />
+            <SectionHeading id="work" index="01" title={t.work.title} note={t.work.note} />
 
             <article id="project-healthylife" data-reveal className="panel-dark rounded-3xl p-7 text-white md:p-12">
               <div className="grid gap-10 md:grid-cols-[1.4fr_1fr]">
@@ -387,22 +405,31 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
         {/* Services, for freelance clients */}
         <section aria-labelledby="services" className="border-b border-line">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
-            <SectionHeading id="services" title={t.services.title} note={t.services.note} />
+            <SectionHeading id="services" index="02" title={t.services.title} note={t.services.note} />
             <div data-stagger className="grid gap-4 md:grid-cols-3">
               {t.services.items.map((item, i) => (
                 <a
                   key={item.title}
                   href={item.href}
-                  className="service-card lift group flex flex-col rounded-3xl border border-line bg-surface p-7"
+                  data-spotlight className="service-card spotlight lift group flex flex-col rounded-3xl border border-line bg-surface p-7"
                 >
-                  <span className="font-mono text-sm text-accent" dir="ltr">
-                    0{i + 1}
+                  <span className="flex items-center justify-between">
+                    <span className="service-icon" aria-hidden="true">
+                      {SERVICE_ICONS[i]}
+                    </span>
+                    <span className="font-mono text-sm text-muted" dir="ltr">
+                      0{i + 1}
+                    </span>
                   </span>
-                  <h3 className="mt-3 font-display text-xl font-bold text-ink">{item.title}</h3>
+                  <h3 className="mt-6 font-display text-2xl font-bold text-ink">{item.title}</h3>
                   <p className="mt-2 flex-1 leading-relaxed text-muted">{item.text}</p>
-                  <p className="mt-5 border-t border-line pt-4 text-sm leading-relaxed text-ink/70">
-                    {item.tech}
-                  </p>
+                  <ul className="mt-5 flex flex-wrap gap-1.5 border-t border-line pt-4">
+                    {item.tech.split(" · ").map((tag) => (
+                      <li key={tag} className="tech-pill">
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
                   <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent">
                     {item.proof}
                     <span
@@ -472,10 +499,13 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
         <section aria-labelledby="experience" className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
           <div className="grid gap-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-16">
             <div className="self-start md:sticky md:top-28">
+              <div data-reveal>
+                <Kicker index="03" label="experience" />
+              </div>
               <h2
                 data-reveal
                 id="experience"
-                className="font-display text-3xl font-bold tracking-tight text-ink md:text-4xl"
+                className="mt-3 font-display text-4xl font-bold tracking-tight text-ink md:text-5xl"
               >
                 {t.experience.title}
               </h2>
@@ -526,14 +556,15 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
         {/* Skills & certifications */}
         <section aria-labelledby="skills" className="border-t border-line">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
-            <SectionHeading id="skills" title={t.skills.title} />
+            <SectionHeading id="skills" index="04" title={t.skills.title} />
             <div data-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {t.skills.groups.map((s, i) => {
                 const core = i === 0;
                 return (
                   <div
                     key={s.group}
-                    className={`skill-card rounded-2xl border bg-surface ${
+                    data-spotlight
+                    className={`skill-card spotlight rounded-2xl border bg-surface ${
                       core ? "skill-core border-accent/40 p-7 sm:col-span-2 md:p-8 lg:col-span-3" : "border-line p-6"
                     }`}
                   >
@@ -567,7 +598,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
               })}
             </div>
 
-            <div id="certifications" data-reveal className="mt-16 rounded-3xl border border-line bg-surface p-7 md:p-10">
+            <div id="certifications" data-reveal data-spotlight className="spotlight mt-16 rounded-3xl border border-line bg-surface p-7 md:p-10">
               <h3 className="font-display text-2xl font-bold text-ink">{t.skills.certsTitle}</h3>
               <ul className="mt-6 divide-y divide-line">
                 {t.skills.certifications.map((c) => (
@@ -586,6 +617,9 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
         {/* Contact */}
         <section aria-labelledby="contact" className="contact-panel text-white">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+            <div data-reveal className="text-white/70">
+              <Kicker index="05" label="contact" />
+            </div>
             <h2
               data-reveal
               id="contact"
