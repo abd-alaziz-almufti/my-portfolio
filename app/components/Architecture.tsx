@@ -80,7 +80,7 @@ export default function Architecture({ text }: { text: Arch }) {
         <p className="arch-label">{text.decisionsTitle}</p>
         <ol className="mt-4 grid gap-3 md:grid-cols-2">
           {text.decisions.map((decision, i) => (
-            <li key={decision} className="decision">
+            <li key={decision} data-spotlight className="decision spotlight">
               <span className="decision-num" dir="ltr" aria-hidden="true">
                 {String(i + 1).padStart(2, "0")}
               </span>

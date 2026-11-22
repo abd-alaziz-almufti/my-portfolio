@@ -359,20 +359,18 @@ article:hover .project-shot img {
   align-items: center;
   padding: 1.1rem 0;
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  color: color-mix(in srgb, var(--ink) 55%, transparent);
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
   white-space: nowrap;
 }
 
 .marquee-row li::after {
-  content: "";
-  width: 5px;
-  height: 5px;
-  margin: 0 1.75rem;
-  border-radius: 9999px;
-  background: var(--sun);
+  content: "\2726";
+  margin: 0 1.6rem;
+  font-size: 0.9rem;
+  color: var(--sun);
 }
 
 .marquee:hover .marquee-row {
@@ -900,4 +898,122 @@ html[dir="rtl"] .skill-core {
 .stat-link:hover > span:last-child {
   color: var(--accent);
   text-decoration-color: currentColor;
+}
+
+/* ---------- Design refresh: interaction layer ---------- */
+.scroll-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 60;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--accent), var(--mint), var(--sun));
+  pointer-events: none;
+}
+html[dir="rtl"] .scroll-progress { transform-origin: right; }
+
+/* Pointer spotlight on cards */
+.spotlight { position: relative; isolation: isolate; }
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--mint) 16%, transparent),
+    transparent 60%
+  );
+}
+.spotlight:hover::after { opacity: 1; }
+html:not([data-theme="dark"]) .spotlight::after {
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 10%, transparent),
+    transparent 60%
+  );
+}
+
+/* Magnetic button */
+.magnetic > * { transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
+[data-magnetic] { transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+/* Film grain over the whole page */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html[data-theme="dark"] body::after { opacity: 0.07; }
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight::after, [data-magnetic], .magnetic > * { transition: none; }
+}
+
+/* Section kicker: "01 // work" */
+.section-kicker {
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Hero stats as glass tiles */
+.stat-tile {
+  border-radius: 1.1rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  padding: 1rem 1.1rem;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.stat-tile:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  transform: translateY(-2px);
+}
+
+/* Service card icon and tech pills */
+.service-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.service-icon svg { width: 1.5rem; height: 1.5rem; }
+.service-card:hover .service-icon { transform: rotate(-8deg) scale(1.06); }
+.tech-pill {
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+  padding: 0.2rem 0.65rem;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--ink) 75%, transparent);
+}
+
+/* Typing caret in the API chip */
+.caret { animation: caret-blink 0.9s steps(1) infinite; }
+@keyframes caret-blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-tile, .service-icon { transition: none; }
+  .caret { animation: none; }
+}
+@media (max-width: 639.98px) {
+  .stat-tile { padding: 0.8rem 0.85rem; }
 }
