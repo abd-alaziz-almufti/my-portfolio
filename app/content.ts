@@ -105,6 +105,8 @@ const en = {
     techLabel: "Technologies",
     shotAlt: (title: string) => `Screenshot of ${title}`,
     caseLabels: { problem: "Problem", built: "What I built", outcome: "Result" },
+    roleLabel: "My role",
+    highlightLabel: "Key achievement",
   },
   healthyLife: {
     eyebrow: "Current project",
@@ -199,6 +201,8 @@ const en = {
       outcome: "A live demo, with PHPUnit tests covering the business logic and tenant isolation.",
       image: "/images/Project1.png",
       frame: "Real estate SaaS · public site",
+      role: "Backend developer",
+      highlight: "Tenant isolation enforced in one place and covered by tests",
       tech: ["Laravel", "Filament", "Next.js", "MySQL"],
       links: [
         { label: "Live demo", url: projectLinks.realEstate.demo },
@@ -215,6 +219,8 @@ const en = {
       outcome: "A live demo, with tests that use OpenAI fakes for both normal answers and failure paths.",
       image: "/images/project2.png",
       frame: "Expense manager · dashboard",
+      role: "Backend developer",
+      highlight: "AI answers validated against a strict JSON contract, with tested failure paths",
       tech: ["Laravel", "Livewire", "Filament", "OpenAI API"],
       links: [
         { label: "Live demo", url: projectLinks.expense.demo },
@@ -230,6 +236,8 @@ const en = {
       outcome: "A live demo on Render, with eager loading and caching for speed, and feature tests for authentication and access control.",
       image: "/images/project3.png",
       frame: "Unified University Platform · home",
+      role: "Developer, graduation project",
+      highlight: "Maker–checker approval flow and ticket routing between staff",
       tech: ["Laravel", "Livewire", "Filament", "PostgreSQL"],
       links: [
         { label: "Live demo", url: projectLinks.university.demo },
@@ -343,7 +351,8 @@ const en = {
     title: "Skills",
     coreNote: "What I work with every day",
     groups: [
-      { group: "Backend", items: ["Laravel", "PHP", "REST APIs", "Multi-tenant architecture", "Queues & events", "Spatie Permission", "Livewire", "Filament", "Java & Spring Boot"] },
+      { group: "Backend", items: ["Laravel", "PHP", "REST APIs", "Livewire", "Filament", "Queues & events", "Java & Spring Boot"] },
+      { group: "Architecture", items: ["Multi-tenant isolation", "Role-based access (RBAC)", "Maker–checker approvals", "API contracts", "Event-driven design"] },
       { group: "Frontend", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Blade"] },
       { group: "AI", items: ["Claude API", "OpenAI API", "Structured output", "Prompt engineering"] },
       { group: "Data & tools", items: ["MySQL", "PostgreSQL", "RabbitMQ", "Docker", "PHPUnit", "Git"] },
@@ -351,6 +360,15 @@ const en = {
     certsTitle: "Certifications from Anthropic Education",
     verify: "Verify credential",
     certifications,
+  },
+  beyond: {
+    title: "Beyond the code",
+    text: "I care about building systems that are not only functional, but maintainable, scalable and reliable. In practice, that comes down to three habits.",
+    principles: [
+      { title: "Safe by default", text: "Each customer's data is isolated in one place, so a new feature can't leak it by accident." },
+      { title: "Designed to fail well", text: "I plan for the bad answer and the API outage, and test those paths, not only the happy one." },
+      { title: "Handed over, not hidden", text: "Tests, docs and a clean repository, so your team can own the code the day I leave." },
+    ],
   },
   contact: {
     title: "Need a backend developer for your product?",
@@ -423,6 +441,8 @@ const ar: Content = {
     techLabel: "التقنيات",
     shotAlt: (title: string) => `لقطة شاشة من ${title}`,
     caseLabels: { problem: "المشكلة", built: "ما بنيته", outcome: "النتيجة" },
+    roleLabel: "دوري",
+    highlightLabel: "أبرز إنجاز",
   },
   healthyLife: {
     eyebrow: "المشروع الحالي",
@@ -517,6 +537,8 @@ const ar: Content = {
       outcome: "عرض حي، واختبارات PHPUnit تغطي منطق العمل وعزل بيانات الشركات.",
       image: "/images/Project1.png",
       frame: "نظام العقارات · الموقع العام",
+      role: "مطوّر Backend",
+      highlight: "عزل بيانات الشركات في مكان واحد، وتغطيه الاختبارات",
       tech: ["Laravel", "Filament", "Next.js", "MySQL"],
       links: [
         { label: "عرض حي", url: projectLinks.realEstate.demo },
@@ -533,6 +555,8 @@ const ar: Content = {
       outcome: "عرض حي، واختبارات تستخدم OpenAI fakes للإجابات العادية ولحالات الفشل.",
       image: "/images/project2.png",
       frame: "مدير المصاريف · لوحة التحكم",
+      role: "مطوّر Backend",
+      highlight: "إجابات الذكاء الاصطناعي تُتحقَّق منها بعقد JSON صارم، مع اختبار حالات الفشل",
       tech: ["Laravel", "Livewire", "Filament", "OpenAI API"],
       links: [
         { label: "عرض حي", url: projectLinks.expense.demo },
@@ -548,6 +572,8 @@ const ar: Content = {
       outcome: "عرض حي على Render، مع eager loading و caching للسرعة، واختبارات feature للمصادقة والتحكم بالوصول.",
       image: "/images/project3.png",
       frame: "المنصة الجامعية الموحدة · الرئيسية",
+      role: "مطوّر، مشروع التخرج",
+      highlight: "مسار موافقة maker–checker وتوجيه التذاكر بين الموظفين",
       tech: ["Laravel", "Livewire", "Filament", "PostgreSQL"],
       links: [
         { label: "عرض حي", url: projectLinks.university.demo },
@@ -661,7 +687,8 @@ const ar: Content = {
     title: "المهارات",
     coreNote: "ما أعمل به كل يوم",
     groups: [
-      { group: "الواجهة الخلفية", items: ["Laravel", "PHP", "REST APIs", "معمارية multi-tenant", "Queues و Events", "Spatie Permission", "Livewire", "Filament", "Java & Spring Boot"] },
+      { group: "الواجهة الخلفية", items: ["Laravel", "PHP", "REST APIs", "Livewire", "Filament", "Queues و Events", "Java & Spring Boot"] },
+      { group: "المعمارية", items: ["عزل بيانات multi-tenant", "صلاحيات حسب الأدوار (RBAC)", "موافقات maker–checker", "عقود الـ API", "تصميم event-driven"] },
       { group: "الواجهة الأمامية", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Blade"] },
       { group: "الذكاء الاصطناعي", items: ["Claude API", "OpenAI API", "Structured output", "Prompt engineering"] },
       { group: "البيانات والأدوات", items: ["MySQL", "PostgreSQL", "RabbitMQ", "Docker", "PHPUnit", "Git"] },
@@ -669,6 +696,15 @@ const ar: Content = {
     certsTitle: "شهادات من Anthropic Education",
     verify: "تحقّق من الشهادة",
     certifications,
+  },
+  beyond: {
+    title: "ما وراء الكود",
+    text: "يهمّني أن أبني أنظمة لا تعمل فقط، بل يسهل صيانتها وتوسيعها ويُعتمد عليها. وعمليًا يتلخّص ذلك في ثلاث عادات.",
+    principles: [
+      { title: "آمن افتراضيًا", text: "بيانات كل عميل معزولة في مكان واحد، فلا تسرّبها ميزة جديدة بالخطأ." },
+      { title: "مصمَّم ليفشل بأمان", text: "أحسب حساب الإجابة الخاطئة وانقطاع الـ API، وأختبر هذه المسارات لا المسار السعيد وحده." },
+      { title: "تسليم لا احتكار", text: "اختبارات وتوثيق ومستودع نظيف، ليملك فريقك الكود يوم أغادر." },
+    ],
   },
   contact: {
     title: "تحتاج مطوّر Backend لمنتجك؟",
