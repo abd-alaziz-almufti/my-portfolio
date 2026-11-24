@@ -355,6 +355,16 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                       {project.title}
                     </h3>
                     <p className="mt-4 leading-relaxed text-ink/85">{project.summary}</p>
+                    <dl className="mt-5 grid gap-x-6 gap-y-3 rounded-xl border border-line bg-paper/60 p-4 sm:grid-cols-[auto_1fr]">
+                      <div>
+                        <dt className="text-xs font-semibold uppercase tracking-wider text-muted">{t.work.roleLabel}</dt>
+                        <dd className="mt-1 font-semibold text-ink">{project.role}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs font-semibold uppercase tracking-wider text-muted">{t.work.highlightLabel}</dt>
+                        <dd className="mt-1 font-semibold text-ink">{project.highlight}</dd>
+                      </div>
+                    </dl>
                     <dl className="mt-5 space-y-3 border-s-2 border-accent/30 ps-4">
                       {(["problem", "built", "outcome"] as const).map((key) => (
                         <div key={key}>
@@ -557,15 +567,17 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
         <section aria-labelledby="skills" className="border-t border-line">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
             <SectionHeading id="skills" index="04" title={t.skills.title} />
-            <div data-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div data-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
               {t.skills.groups.map((s, i) => {
-                const core = i === 0;
+                const core = i < 2;
                 return (
                   <div
                     key={s.group}
                     data-spotlight
                     className={`skill-card spotlight rounded-2xl border bg-surface ${
-                      core ? "skill-core border-accent/40 p-7 sm:col-span-2 md:p-8 lg:col-span-3" : "border-line p-6"
+                      core
+                        ? "skill-core border-accent/40 p-7 sm:col-span-2 md:p-8 lg:col-span-3"
+                        : "border-line p-6 lg:col-span-2"
                     }`}
                   >
                     <div className="flex flex-wrap items-start justify-between gap-3">
@@ -575,7 +587,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                           {s.group}
                         </h3>
                       </div>
-                      {core && (
+                      {i === 0 && (
                         <span className="rounded-full bg-accent-soft px-3 py-1 text-sm font-semibold text-accent">
                           {t.skills.coreNote}
                         </span>
@@ -614,11 +626,29 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
           </div>
         </section>
 
+        {/* Beyond the code */}
+        <section aria-labelledby="beyond" className="border-t border-line bg-surface">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+            <SectionHeading id="beyond" index="05" title={t.beyond.title} note={t.beyond.text} />
+            <ul data-stagger className="grid gap-4 md:grid-cols-3">
+              {t.beyond.principles.map((p, i) => (
+                <li key={p.title} data-spotlight className="spotlight rounded-2xl border border-line bg-paper p-6 md:p-7">
+                  <p className="text-sm font-medium tabular-nums text-accent">
+                    0{i + 1}
+                  </p>
+                  <h3 className="mt-2 font-display text-xl font-bold text-ink">{p.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{p.text}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* Contact */}
         <section aria-labelledby="contact" className="contact-panel text-white">
           <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
             <div data-reveal className="text-white/70">
-              <Kicker index="05" label="contact" />
+              <Kicker index="06" label="contact" />
             </div>
             <h2
               data-reveal

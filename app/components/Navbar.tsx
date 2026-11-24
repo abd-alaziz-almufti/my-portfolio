@@ -35,7 +35,7 @@ export default function Navbar({ name, nav }: { name: string; nav: Nav }) {
             <a
               key={item.name}
               href={item.href}
-              className="nav-link hidden rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-ink md:block"
+              className="nav-link hidden rounded-md px-2 py-2 lg:px-3 text-sm font-medium text-muted transition-colors hover:text-ink md:block"
             >
               {item.name}
             </a>
