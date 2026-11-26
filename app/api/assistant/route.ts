@@ -42,11 +42,11 @@ function parseBody(body: unknown): { lang: Lang; messages: ChatMessage[] } | nul
   return { lang, messages: clean };
 }
 
-async function askGemini(lang: Lang, messages: ChatMessage[]): Promise<string | null> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return null;
+// Last provider error (status code and a short reason only, never the key), surfaced as a header
+// so a failing setup can be diagnosed from the browser.
+let lastError = "";
 
-  const model = process.env.GEMINI_MODEL || "gemini-flash-latest";
+async function callGemini(apiKey: string, model: string, lang: Lang, messages: ChatMessage[]) {
   const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
     {
@@ -58,20 +58,45 @@ async function askGemini(lang: Lang, messages: ChatMessage[]): Promise<string | 
           role: m.role === "assistant" ? "model" : "user",
           parts: [{ text: m.content }],
         })),
-        generationConfig: { maxOutputTokens: 400, temperature: 0.3 },
+        // Room for the model's internal reasoning plus a short answer.
+        generationConfig: { maxOutputTokens: 2048, temperature: 0.3 },
       }),
-      signal: AbortSignal.timeout(20_000),
+      signal: AbortSignal.timeout(25_000),
     },
   );
   if (!res.ok) {
-    console.error("assistant: Gemini API returned", res.status);
+    const body = await res.text();
+    const reason = body.match(/"status":\s*"([A-Z_]+)"/)?.[1] ?? "";
+    lastError = `gemini:${model}:${res.status}${reason ? `:${reason}` : ""}`;
+    console.error("assistant:", lastError, body.slice(0, 300));
     return null;
   }
   const data = (await res.json()) as {
-    candidates?: { content?: { parts?: { text?: string }[] } }[];
+    candidates?: { finishReason?: string; content?: { parts?: { text?: string; thought?: boolean }[] } }[];
   };
-  const text = data.candidates?.[0]?.content?.parts?.map((part) => part.text ?? "").join("").trim();
+  const candidate = data.candidates?.[0];
+  const text = candidate?.content?.parts
+    ?.filter((part) => !part.thought)
+    .map((part) => part.text ?? "")
+    .join("")
+    .trim();
+  if (!text) {
+    lastError = `gemini:${model}:empty:${candidate?.finishReason ?? "none"}`;
+    console.error("assistant:", lastError);
+  }
   return text || null;
+}
+
+async function askGemini(lang: Lang, messages: ChatMessage[]): Promise<string | null> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return null;
+  // Try the configured model, then a lighter one with its own free quota.
+  const models = [process.env.GEMINI_MODEL || "gemini-flash-latest", "gemini-flash-lite-latest"];
+  for (const model of [...new Set(models)]) {
+    const reply = await callGemini(apiKey, model, lang, messages);
+    if (reply) return reply;
+  }
+  return null;
 }
 
 async function askClaude(lang: Lang, messages: ChatMessage[]): Promise<string | null> {
@@ -134,9 +159,13 @@ export async function POST(request: NextRequest) {
   const { lang, messages } = parsed;
   const question = messages[messages.length - 1].content;
 
+  lastError = "";
   const reply = await askAi(lang, messages);
   if (reply) return Response.json({ reply, source: "ai" });
 
   // No key configured, or the AI is down: answer from the site content instead of failing.
-  return Response.json({ reply: fallbackAnswer(question, lang), source: "site" });
+  return Response.json(
+    { reply: fallbackAnswer(question, lang), source: "site" },
+    { headers: lastError ? { "x-assistant-error": lastError } : undefined },
+  );
 }
