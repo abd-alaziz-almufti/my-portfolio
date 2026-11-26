@@ -42,6 +42,38 @@ function parseBody(body: unknown): { lang: Lang; messages: ChatMessage[] } | nul
   return { lang, messages: clean };
 }
 
+async function askGemini(lang: Lang, messages: ChatMessage[]): Promise<string | null> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return null;
+
+  const model = process.env.GEMINI_MODEL || "gemini-flash-latest";
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+    {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-goog-api-key": apiKey },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: systemPrompt(lang) }] },
+        contents: messages.map((m) => ({
+          role: m.role === "assistant" ? "model" : "user",
+          parts: [{ text: m.content }],
+        })),
+        generationConfig: { maxOutputTokens: 400, temperature: 0.3 },
+      }),
+      signal: AbortSignal.timeout(20_000),
+    },
+  );
+  if (!res.ok) {
+    console.error("assistant: Gemini API returned", res.status);
+    return null;
+  }
+  const data = (await res.json()) as {
+    candidates?: { content?: { parts?: { text?: string }[] } }[];
+  };
+  const text = data.candidates?.[0]?.content?.parts?.map((part) => part.text ?? "").join("").trim();
+  return text || null;
+}
+
 async function askClaude(lang: Lang, messages: ChatMessage[]): Promise<string | null> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return null;
@@ -71,6 +103,19 @@ async function askClaude(lang: Lang, messages: ChatMessage[]): Promise<string | 
   return text || null;
 }
 
+/** Uses whichever AI provider has a key set (Gemini first, then Claude). */
+async function askAi(lang: Lang, messages: ChatMessage[]): Promise<string | null> {
+  for (const ask of [askGemini, askClaude]) {
+    try {
+      const reply = await ask(lang, messages);
+      if (reply) return reply;
+    } catch (error) {
+      console.error("assistant: AI call failed", error);
+    }
+  }
+  return null;
+}
+
 export async function POST(request: NextRequest) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown";
   if (rateLimited(ip)) {
@@ -89,12 +134,8 @@ export async function POST(request: NextRequest) {
   const { lang, messages } = parsed;
   const question = messages[messages.length - 1].content;
 
-  try {
-    const reply = await askClaude(lang, messages);
-    if (reply) return Response.json({ reply, source: "ai" });
-  } catch (error) {
-    console.error("assistant: Claude API call failed", error);
-  }
+  const reply = await askAi(lang, messages);
+  if (reply) return Response.json({ reply, source: "ai" });
 
   // No key configured, or the AI is down: answer from the site content instead of failing.
   return Response.json({ reply: fallbackAnswer(question, lang), source: "site" });
