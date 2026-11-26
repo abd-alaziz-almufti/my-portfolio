@@ -5,6 +5,7 @@ import ProductShowcase from "./ProductShowcase";
 import Architecture from "./Architecture";
 import SmoothScroll from "./SmoothScroll";
 import Interactions from "./Interactions";
+import AssistantWidget from "./AssistantWidget";
 import ApiChip from "./ApiChip";
 import WorkRibbon from "./WorkRibbon";
 import { BlurText, LightRays, StarBorder, CountUp } from "./react-bits";
@@ -695,6 +696,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
           </div>
         </section>
       </main>
+      <AssistantWidget lang={lang} t={t.assistant} />
       <footer className="bg-night text-white/50">
         <div className="mx-auto max-w-6xl border-t border-white/10 px-5 py-6 text-sm md:px-8">{t.footer}</div>
       </footer>
