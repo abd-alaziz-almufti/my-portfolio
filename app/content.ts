@@ -374,6 +374,26 @@ const en = {
     title: "Need a backend developer for your product?",
     text: "If you want a backend built for production from day one, with multi-tenant isolation, role-based permissions, automated tests and AI where it actually helps, I can own it end to end. I'm also open to full-time remote backend roles.",
   },
+  assistant: {
+    open: "Ask my assistant",
+    close: "Close the assistant",
+    title: "Abdalaziz's assistant",
+    subtitle: "Answers from this site only",
+    greeting: "Hi! Ask me about Abdalaziz's projects, services or stack, and I'll answer from what's on this site.",
+    suggestions: [
+      "What services do you offer?",
+      "Tell me about HealthyLife AI",
+      "Which technologies do you use?",
+      "Are you open to full-time roles?",
+    ],
+    placeholder: "Ask a question…",
+    send: "Send",
+    thinking: "Thinking…",
+    error: "Something went wrong. Please try again, or reach out through the contact section.",
+    limit: "That's the question limit for now. Please try again later, or reach out directly.",
+    contactCta: "Contact Abdalaziz",
+    note: "AI answers can be imperfect. For anything important, contact me directly.",
+  },
   footer: "© 2026 Abdalaziz Almufti. Gaza, Palestine.",
 };
 
@@ -709,6 +729,26 @@ const ar: Content = {
   contact: {
     title: "تحتاج مطوّر Backend لمنتجك؟",
     text: "إذا أردت Backend مبنيًا للإنتاج من اليوم الأول، بعزل بيانات بين العملاء وصلاحيات حسب الأدوار واختبارات آلية وذكاء اصطناعي حيث يفيد فعلًا، فأنا أتولاه من البداية إلى النهاية. ومتاح أيضًا لوظائف Backend بدوام كامل عن بُعد.",
+  },
+  assistant: {
+    open: "اسأل مساعدي",
+    close: "إغلاق المساعد",
+    title: "مساعد عبدالعزيز",
+    subtitle: "يجيب من معلومات هذا الموقع فقط",
+    greeting: "أهلًا بك! اسألني عن مشاريع عبدالعزيز أو خدماته أو التقنيات التي يعمل بها، وسأجيبك من معلومات هذا الموقع.",
+    suggestions: [
+      "ما الخدمات التي تقدمها؟",
+      "حدّثني عن HealthyLife AI",
+      "ما التقنيات التي تعمل بها؟",
+      "هل أنت متاح لوظيفة بدوام كامل؟",
+    ],
+    placeholder: "اكتب سؤالك…",
+    send: "إرسال",
+    thinking: "يكتب…",
+    error: "حدث خطأ. حاول مرة أخرى، أو تواصل معي من قسم التواصل.",
+    limit: "وصلت إلى الحد المسموح من الأسئلة حاليًا. حاول لاحقًا، أو تواصل معي مباشرة.",
+    contactCta: "تواصل مع عبدالعزيز",
+    note: "قد لا تكون إجابات الذكاء الاصطناعي دقيقة دائمًا. للأمور المهمة تواصل معي مباشرة.",
   },
   footer: "© 2026 عبدالعزيز المفتي. غزة، فلسطين.",
 };
