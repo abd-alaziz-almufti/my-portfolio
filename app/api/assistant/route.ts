@@ -135,6 +135,7 @@ async function askAi(lang: Lang, messages: ChatMessage[]): Promise<string | null
       const reply = await ask(lang, messages);
       if (reply) return reply;
     } catch (error) {
+      lastError = `${ask.name}:${error instanceof Error ? error.name : "error"}`;
       console.error("assistant: AI call failed", error);
     }
   }
