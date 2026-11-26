@@ -108,7 +108,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
               maxDevicePixelRatio={1.5}
             />
           </div>
-          <div className="mx-auto max-w-6xl px-5 pb-16 pt-14 md:px-8 md:pb-24 md:pt-20">
+          <div className="mx-auto max-w-6xl px-5 pb-10 pt-10 md:px-8 md:pb-12 md:pt-12">
             <div className="grid items-center gap-14 md:grid-cols-[1fr_auto] md:gap-20">
               <div className="max-w-3xl">
                 <p className="reveal mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-sm font-medium text-muted">
@@ -159,7 +159,7 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
                     {t.hero.seeWork}
                   </a>
                 </div>
-                <ul style={{ animationDelay: "360ms" }} className="reveal mt-10 grid max-w-xl grid-cols-3 gap-3">
+                <ul style={{ animationDelay: "360ms" }} className="reveal mt-8 grid max-w-xl grid-cols-3 gap-3">
                   {t.hero.stats.map((s) => {
                     const body = (
                       <>
@@ -223,13 +223,27 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
             </div>
           </div>
 
-          <div className="marquee border-t border-line/70" dir="ltr" aria-label={t.hero.stackLabel}>
-            <ul className="marquee-row">
-              {[...heroStack, ...heroStack].map((item, i) => (
-                <li key={i} aria-hidden={i >= heroStack.length || undefined}>
-                  {item}
-                </li>
-              ))}
+          <div className="mx-auto max-w-6xl px-5 pb-14 md:px-8 md:pb-20">
+            <ul className="work-peek-row -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0" aria-label={t.work.title}>
+              {[0, 1, 3].map((n) => {
+                const item = t.ribbon.items[n];
+                return (
+                  <li key={item.href + n} className="w-[78%] shrink-0 snap-start sm:w-auto">
+                    <a href={item.href} className="work-peek group block">
+                      <span className="relative block aspect-[2/1] overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_18px_40px_-24px_rgba(18,33,29,0.5)]">
+                        <Image
+                          src={item.image}
+                          alt=""
+                          fill
+                          sizes="(min-width: 1152px) 360px, (min-width: 640px) 31vw, 100vw"
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                      </span>
+                      <span className="mt-3 block text-sm font-semibold text-ink group-hover:text-accent">{item.title}</span>
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </section>
@@ -242,12 +256,27 @@ export default function PortfolioPage({ lang }: { lang: Lang }) {
             <SectionHeading id="work" index="01" title={t.work.title} note={t.work.note} />
 
             <article id="project-healthylife" data-reveal className="panel-dark rounded-3xl p-7 text-white md:p-12">
-              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr]">
+              <div className="mb-12 grid items-center gap-10 md:grid-cols-[1fr_1.35fr]">
                 <div>
                   <p className="text-sm font-semibold text-sun">{hl.eyebrow}</p>
-                  <h3 className="mt-2 font-display text-3xl font-bold tracking-tight md:text-4xl">HealthyLife AI</h3>
+                  <h3 className="mt-2 font-display text-3xl font-bold tracking-tight md:text-5xl">HealthyLife AI</h3>
                   <p className="mt-4 text-lg leading-relaxed text-white/80">{hl.text}</p>
-                  <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                </div>
+                <BrowserFrame label={hl.showcase.frame} tone="dark">
+                  <div className="relative aspect-[2/1] overflow-hidden">
+                    <Image
+                      src="/images/hl-dashboard.webp"
+                      alt={t.work.shotAlt("HealthyLife AI")}
+                      fill
+                      sizes="(min-width: 1152px) 620px, (min-width: 768px) 55vw, 100vw"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                </BrowserFrame>
+              </div>
+              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr]">
+                <div>
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
                     <p className="text-sm font-semibold text-sun">{hl.problemLabel}</p>
                     <p className="mt-2 leading-relaxed text-white/85">{hl.problem}</p>
                   </div>
