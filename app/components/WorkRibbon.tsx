@@ -392,7 +392,7 @@ export default function WorkRibbon({ text }: { text: Ribbon }) {
   return (
     <section aria-label={text.label} className="ribbon bg-night text-snow">
       {/* Scroll scene */}
-      <div ref={trackRef} className="ribbon-track h-[420vh] motion-reduce:hidden">
+      <div ref={trackRef} className="ribbon-track h-[280vh] motion-reduce:hidden">
         <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden">
           <div
             aria-hidden="true"
